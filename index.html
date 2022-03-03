@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Organisms</title>
+    <link rel="stylesheet" href="day-range-picker/styles/day-range-picker.css" />
+  </head>
+  <body>
+    <div id="app">Home page</div>
+    <a href="/Calendar">Date Range Picker</a>
+    <div>
+      <div class="grid px-3 pt-4 pb-7">
+        <label class="form_label text-center">Check In</label>
+        <input
+          type="text"
+          class="hidden"
+          name="check-in"
+          id="datepicker-check-in"
+          value="18 Feb"/>
+        <label
+          class="datepicker text-center"
+          for="datepicker-check-in"
+          id="datepicker-check-in-label">
+            18 <small>Feb</small>
+        </label>
+      </div>
+      <div class="grid px-3 pt-4 pb-7">
+        <label class="form_label">Check Out</label>
+        <input
+          type="text"
+          class="hidden"
+          name="check-in"
+          id="datepicker-check-out"
+          value="19 Feb"/>
+        <label
+          class="datepicker text-center"
+          for="datepicker-check-out"
+          id="datepicker-check-out-label">
+          19 <small>Feb</small>
+        </label>
+      </div>
+    </div>
+    <script src="./day-range-picker/day-range-picker.js"></script>
+    <script>
+            let minDate = new Date();
+            minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
+            let maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 90); //maxlimit is 60 days from now;
+
+            // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+
+            //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
+            var picker = new DayRangePicker({
+                checkIn: document.getElementById("datepicker-check-in"),
+                checkInLabel: document.getElementById("datepicker-check-in-label"),
+                checkOut: document.getElementById("datepicker-check-out"),
+                checkOutLabel: document.getElementById("datepicker-check-out-label"),
+                minDate,
+                maxDate,
+                showPrice: false,
+                format: "DD/MM/YYYY",
+            });
+            console.log(picker.getCurrentDateRange());
+        </script>
+  </body>
+</html>
