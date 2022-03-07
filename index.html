@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Organisms</title>
-    <link rel="stylesheet" href="day-range-picker/styles/day-range-picker.css" />
+    <link rel="stylesheet" href="day-range-picker/styles/day-range-picker.css"/>
   </head>
   <body>
     <div id="app">Home page</div>
@@ -18,7 +18,7 @@
           class="hidden"
           name="check-in"
           id="datepicker-check-in"
-          value="18 Feb"/>
+          value=""/>
         <label
           class="datepicker text-center"
           for="datepicker-check-in"
@@ -33,7 +33,7 @@
           class="hidden"
           name="check-in"
           id="datepicker-check-out"
-          value="19 Feb"/>
+          value=""/>
         <label
           class="datepicker text-center"
           for="datepicker-check-out"
@@ -44,25 +44,75 @@
     </div>
     <script src="./day-range-picker/day-range-picker.js"></script>
     <script>
-            let minDate = new Date();
-            minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
-            let maxDate = new Date();
-            maxDate.setDate(maxDate.getDate() + 90); //maxlimit is 60 days from now;
+      const prices = [
+        {
+          date: '2022-03-05T14:48:00.000Z',
+          price: 110
+        }, {
+          date: '2022-03-06T14:48:00.000Z',
+          price: 112
+        }, {
+          date: '2022-03-07T14:48:00.000Z',
+          price: 111
+        }, {
+          date: '2022-03-09T14:48:00.000Z',
+          price: 115
+        }, {
+          date: '2022-03-11T14:48:00.000Z',
+          price: 110
+        }, {
+          date: '2022-03-14T14:48:00.000Z',
+          price: 122
+        },
+        {
+          date: '2022-03-15T14:48:00.000Z',
+          price: 121
+        }, 
+        {
+          date: '2022-03-19T14:48:00.000Z',
+          price: 121
+        }
+      ]
+      const checkIn = document.getElementById("datepicker-check-in");
+      const checkInLabel = document.getElementById("datepicker-check-in-label");
+      const checkOut = document.getElementById("datepicker-check-out");
+      const checkOutLabel = document.getElementById("datepicker-check-out-label");
 
-            // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+      let startDate = new Date();
+      startDate.setDate(startDate.getDate() + 1);
+      let endDate = new Date();
+      endDate.setDate(endDate.getDate() + 2);
+      let minDate = new Date();
+      minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
+      let maxDate = new Date();
+      maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
 
-            //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
-            var picker = new DayRangePicker({
-                checkIn: document.getElementById("datepicker-check-in"),
-                checkInLabel: document.getElementById("datepicker-check-in-label"),
-                checkOut: document.getElementById("datepicker-check-out"),
-                checkOutLabel: document.getElementById("datepicker-check-out-label"),
-                minDate,
-                maxDate,
-                showPrice: false,
-                format: "DD/MM/YYYY",
-            });
-            console.log(picker.getCurrentDateRange());
-        </script>
+      // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+
+      //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
+      var picker = new DayRangePicker({
+        checkIn,
+        checkOut,
+        startDate,
+        endDate,
+        minDate,
+        maxDate,
+        showPrice: true,
+        format: "DD/MM/YYYY"
+      });
+
+      startDate.setDate(startDate.getDate() + 1);
+      endDate.setDate(endDate.getDate() + 2)
+      // picker.setDateRange(startDate, endDate);
+      startDate.setDate(startDate.getDate() + 1);
+      picker.selectStartDate(startDate);
+      picker.selectEndDate(endDate);
+      picker.goToNextMonth();
+      picker.goToPrevMonth();
+      picker.setPriceList(prices)
+      console.log(picker.getCurrentDateRange());
+      console.log(picker.getCurrentEndDate());
+      console.log(picker.getCurrentStartDate());
+    </script>
   </body>
 </html>

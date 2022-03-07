@@ -13,6 +13,8 @@ const defaults = {
   checkInLabel: null,
   checkOutLabel: null,
 
+  priceList: null,
+
   // automatically show/hide the picker on `field` focus (default `true` if `field` is set)
   bound: undefined,
 
@@ -27,9 +29,9 @@ const defaults = {
 
   numberOfMonths: 2,
 
-  firstDate: null,
+  startDate: null,
   
-  secondDate: null,
+  endDate: null,
 
   // the default output format for `.toString()` and `field` value
   format: "YYYY-MM-DD",
@@ -145,6 +147,10 @@ const isDate = function (obj) {
 const isLeapYear = function (year) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 };
+
+const isHidden = ( el ) => {
+  return (el.offsetParent === null)
+}
 
 const getDaysInMonth = function (year, month) {
   return [
@@ -265,7 +271,7 @@ const renderDay = function (opts) {
   }
 
   let innerEle = opts.showPrice
-    ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">$${opts.price}</div></div>`
+    ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">${opts.price ? '$' + opts.price : ''}</div></div>`
     : `${opts.day}`;
 
   return (
@@ -352,21 +358,49 @@ const renderTable = function (opts, data, randId) {
 let DayRangePicker = function (options) {
   let self = this;
   let opts = self.config(options);
-
-// - nextMonth
-// - prevMonth
-// - selectDate
-// - getCurrentStartDate
-// - getCurrentEndDate
-  // this.getCurrentDateRange = function () {
-  //   return {
-  //     from: self.from,
-  //     to: self.to,
-  //   };
-  // }
-  // this.setDateRange = function () {
-  //   return opts;
-  // }
+  
+  this.goToNextMonth = function () {
+    self.nextMonth();
+  }
+  this.goToPrevMonth = function () {
+    self.prevMonth();
+  }
+  this.selectStartDate = (date) => {
+    self.setStartDate(date)
+  }
+  this.selectEndDate = (date) => {
+    self.setEndDate(date)
+  }
+  this.getCurrentStartDate = () => {
+    if(this._d.start && isDate(this._d.start)){
+      return this.format(opts.format, 'start');
+    }
+    return '';
+  }
+  this.getCurrentEndDate = () => {
+    if(this._d.end && isDate(this._d.end)){
+      return this.format(opts.format, 'end');
+    }
+    return '';
+  }
+  this.getCurrentDateRange = () => {
+    return  this._o.checkIn.value + ' - ' + this._o.checkOut.value;
+  }
+  this.setDateRange = (start, end) => {
+    self.setStartDate(start);
+    self.setEndDate(end);
+    return;
+  }
+  this.setPriceList = (prices) => {
+    opts.priceList = {};
+    if (prices.length > 0) {
+        prices.forEach(price => {
+          let date = new Date(price.date);
+          let dd = date.getFullYear() + '_' + date.getMonth() + '_' + date.getDate();
+          opts.priceList[dd] = price.price;
+        });
+    }
+  }
 
   function setDateAndClose(target) {
     self.setDate(
@@ -508,6 +542,14 @@ DayRangePicker.prototype = {
       this.setMaxDate(opts.maxDate);
     }
 
+    //Set initial values
+    if(isDate(this._o.startDate)){
+      this.setStartDate(startDate);
+    }
+    if(isDate(this._o.endDate)){
+      this.setEndDate(endDate);
+    }
+
     return opts;
   },
   toString: function (format) {
@@ -576,7 +618,7 @@ DayRangePicker.prototype = {
     if (/((Y+)|(y+))/.test(format)) {
       format = format.replace(
         RegExp.$1,
-        (this._d.start.getFullYear() + "").substr(4 - RegExp.$1.length)
+        (this._d[pos].getFullYear() + "").substr(4 - RegExp.$1.length)
       );
     }
 
@@ -643,17 +685,73 @@ DayRangePicker.prototype = {
     if (this._o.checkIn) {
       // this._o.checkIn.value = this.toString();
       this._o.checkIn.value = this.getStartDate();
-      this._o.checkInLabel.innerHTML = this.getStartDateLabel();
+      if(this._o.checkInLabel)
+        this._o.checkInLabel.innerHTML = this.getStartDateLabel();
       fireEvent(this._o.checkIn, "change", { firedBy: this });
     }
     if (this._o.checkOut) {
       // this._o.checkIn.value = this.toString();
       this._o.checkOut.value = this.getEndDate();
-      this._o.checkOutLabel.innerHTML = this.getEndDateLabel();      
+      if(this._o.checkOutLabel)
+        this._o.checkOutLabel.innerHTML = this.getEndDateLabel();      
       fireEvent(this._o.checkOut, "change", { firedBy: this });
     }
     if (!preventOnSelect && typeof this._o.onSelect === "function") {
       this._o.onSelect.call(this, this.getDate());
+    }
+  },
+  setStartDate: function (date) {
+    if (!date) return;
+    if (typeof date === "string") {
+      date = new Date(Date.parse(date));
+    }
+    if (!isDate(date)) {
+      return;
+    }
+    let min = this._o.minDate;
+    if (isDate(min) && date < min) {
+      date = min;
+    }
+    let pos = 'start';
+    if(!this._d) this._d = {};
+    this._d[pos] = new Date(date.getTime());
+
+    setToStartOfDay(this._d[pos]);
+    this.gotoDate(this._d[[pos]]);
+    
+    if (this._o.checkIn) {
+      this._o.checkIn.value = this.getStartDate();
+      if(this._o.checkInLabel)
+        this._o.checkInLabel.innerHTML = this.getStartDateLabel();
+      fireEvent(this._o.checkIn, "change", { firedBy: this });
+    }
+  },
+  setEndDate: function (date) {
+    if (!date) return;
+    if (typeof date === "string") {
+      date = new Date(Date.parse(date));
+    }
+    if (!isDate(date)) {
+      return;
+    }
+    
+    let max = this._o.maxDate;
+    if (isDate(max) && date > max) {
+      date = max;
+    }
+
+    let pos = 'end';
+    if(!this._d) this._d = {};
+    this._d[pos] = new Date(date.getTime());
+
+    setToStartOfDay(this._d[pos]);
+    this.gotoDate(this._d[[pos]]);
+    
+    if (this._o.checkOut) {
+      this._o.checkOut.value = this.getEndDate();
+      if(this._o.checkOutLabel)
+        this._o.checkOutLabel.innerHTML = this.getEndDateLabel();      
+      fireEvent(this._o.checkOut, "change", { firedBy: this });
     }
   },
   gotoDate: function (date) {
@@ -792,7 +890,11 @@ DayRangePicker.prototype = {
       document.documentElement.scrollTop;
     leftAligned = true;
     bottomAligned = true;
-    if (typeof this._o.checkInLabel.getBoundingClientRect === "function") {
+    if (!isHidden(this._o.checkIn) && typeof this._o.checkIn.getBoundingClientRect === "function") {
+      clientRect = this._o.checkIn.getBoundingClientRect();
+      left = clientRect.left + window.pageXOffset;
+      top = clientRect.bottom + window.pageYOffset;
+    } else if (!isHidden(this._o.checkInLabel) && typeof this._o.checkInLabel.getBoundingClientRect === "function") {
       clientRect = this._o.checkInLabel.getBoundingClientRect();
       left = clientRect.left + window.pageXOffset;
       top = clientRect.bottom + window.pageYOffset;
@@ -882,6 +984,8 @@ DayRangePicker.prototype = {
           yearNumber = yearOfNextMonth;
         }
       }
+      let dateString = yearNumber + '_' + monthNumber + '_' + dayNumber
+      let price = opts.priceList[dateString] ? opts.priceList[dateString] : null;
 
       let dayConfig = {
         day: dayNumber,
@@ -894,7 +998,7 @@ DayRangePicker.prototype = {
         isEmpty,
         isDisabled,
         showPrice: opts.showPrice,
-        price: priceList[dayNumber],
+        price,
         showDaysInNextAndPreviousMonths: opts.showDaysInNextAndPreviousMonths,
       };
 

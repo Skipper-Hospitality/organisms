@@ -166,10 +166,8 @@ th {
   padding: 8px;
   color: var(--daypicker-primary-color);
   font-size: 16px;
-  line-height: 26px;
   text-align: center;
   background: var(--bg-daypicker-range);
-  /* height: initial; */
 }
 
 @media (max-width: 767px) {
