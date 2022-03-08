@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Organisms</title>
+    <link rel="stylesheet" href="day-range-picker/styles/day-range-picker.css"/>
+    <style>
+      body {
+        margin: 0;
+      }
+      .pod_container {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .banner_image {
+        width: auto;
+        height: auto;
+        min-width: 100%;
+        min-height: 100%;
+      }
+      .form_container {
+        display: flex;
+        position: absolute;
+        bottom: 30vh;
+        width: 100%;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+      .booking_form {
+        display: flex;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+        background: #253745;
+        padding: 0 25px;
+      }
+      .form_label {
+        color: white;
+        font-size: 12px;
+        padding-bottom: 4px;
+      }
+
+      .booking_form select {
+        min-width: 60px;
+        max-width: 250px;
+        padding: 7px 14px;
+        font-size: 16px;
+        line-height: 28px;
+        color: #e3e200;
+        background: #253745;
+        border-radius: 0.25em;
+        cursor: pointer;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' role='img' width='1em' height='1em' preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'%3E%3Cpath fill='%23E3E200' fill-rule='evenodd' d='m6 7l6 6l6-6l2 2l-8 8l-8-8z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat, repeat;
+        background-position: right 0.7em top 50%, 0 0;
+        background-size: 0.65em auto, 100%;
+      }
+
+      .booking_form .promo-code {
+        width: 80px;
+        padding: 7px;
+        font-size: 16px;
+        line-height: 28px;
+        color: #e3e200;
+        background: #253745;
+        border-radius: 0.25em;
+        border: 1px solid #617c87;
+      }
+
+      .datepicker {
+        width: 50px;
+        padding: 7px;
+        color: #e3e200;
+        background: #253745;
+        border: none;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        cursor: pointer;
+      }
+      .datepicker small {
+        display: block;
+        font-size: 12px;
+        line-height: 14px;
+        text-transform: uppercase;
+      }
+
+      .booking_form .submit_button {
+        width: 154px;
+        height: 40px;
+        align-self: center;
+        background: #e3e200;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        line-height: 100%;
+        cursor: pointer;
+        margin-left: 12px;
+      }
+
+      .grid {
+        display: grid;
+      }
+      .p-6 {
+        padding: 24px;
+      }
+      .px-3 {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .pt-4 {
+        padding-top: 16px;
+      }
+      .pb-7 {
+        padding-bottom: 28px;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .hidden {
+        display: none;
+      }
+
+      option {
+        margin: 20px;
+        color: white;
+        font-size: 16px;
+        line-height: 28px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">Calendar Page</div>
+    <a href="/">Home page</a>
+    <div class="pod_container">
+      <img
+                src="images/pod_banner.jpg"
+                class="banner_image"
+                alt="calendar"
+/>
+      <div class="form_container">
+        <form class="booking_form" id="accommodations">
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label" for="hotel-selector"
+                            >Location</label
+                        >
+            <select id="hotel-selector" name="hotel-selector">
+              <option value="" data-be="" selected>Select Hotel</option>
+              <option value="Pod 39 New York">
+                                Pod 39 New York
+                            </option>
+              <option value="Pod 51 New York">
+                                Pod 51 New York
+                            </option>
+              <option value="Pod Times Square New York">
+                                Pod Times Square New York
+                            </option>
+              <option value="Pod Brooklyn New York">
+                                Pod Brooklyn New York
+                            </option>
+              <option value="Pod Pads @ Times Square">
+                                Pod Pads @ Times Square
+                            </option>
+            </select>
+          </div>
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label text-center">Check In</label>
+            <input
+                            type="text"
+                            class="hidden"
+                            name="check-in"
+                            id="datepicker-check-in"
+                            value="18 Feb"
+/>
+            <label
+                            class="datepicker text-center"
+                            for="datepicker-check-in"
+                            id="datepicker-check-in-label"
+                            >18 <small>Feb</small>
+            </label
+                        >
+          </div>
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label">Check Out</label>
+            <input
+                            type="text"
+                            class="hidden"
+                            name="check-out"
+                            id="datepicker-check-out"
+                            value="19 Feb"
+/>
+            <label
+                            class="datepicker text-center"
+                            for="datepicker-check-out"
+                            id="datepicker-check-out-label"
+                            >19 <small>Feb</small>
+            </label
+                        >
+          </div>
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label" for="rooms-selector"
+                            >Rooms</label
+                        >
+            <select id="rooms-selector" name="rooms-selector">
+              <option selected="" value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label" for="guests-selector"
+                            >Guests</label
+                        >
+            <select name="guests-selector" id="guests-selector">
+              <option selected="" value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label" for="promo-code"
+                            >Promo Code</label
+                        >
+            <input
+                            type="text"
+                            class="promo-code"
+                            name="promo-code"
+                            id="promo-code"
+/>
+          </div>
+
+          <button type="submit" class="submit_button">
+                        Book Now
+                    </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./day-range-picker/day-range-picker.js"></script>
+    <script>
+      const prices = [
+        {
+          date: '2022-03-05T14:48:00.000Z',
+          price: 110
+        }, {
+          date: '2022-03-06T14:48:00.000Z',
+          price: 112
+        }, {
+          date: '2022-03-07T14:48:00.000Z',
+          price: 111
+        }, {
+          date: '2022-03-09T14:48:00.000Z',
+          price: 115
+        }, {
+          date: '2022-03-11T14:48:00.000Z',
+          price: 110
+        }, {
+          date: '2022-03-14T14:48:00.000Z',
+          price: 122
+        }, {
+          date: '2022-03-15T14:48:00.000Z',
+          price: 121
+        }, {
+          date: '2022-03-19T14:48:00.000Z',
+          price: 121
+        }
+      ]
+      const checkIn = document.getElementById("datepicker-check-in");
+      const checkInLabel = document.getElementById("datepicker-check-in-label");
+      const checkOut = document.getElementById("datepicker-check-out");
+      const checkOutLabel = document.getElementById("datepicker-check-out-label");
+
+      let startDate = new Date();
+      startDate.setDate(startDate.getDate() + 1);
+      let endDate = new Date();
+      endDate.setDate(endDate.getDate() + 2);
+      let minDate = new Date();
+      minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
+      let maxDate = new Date();
+      maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
+
+      // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+
+      //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
+      var picker = new DayRangePicker({
+        checkIn,
+        checkInLabel,
+        checkOut,
+        checkOutLabel,
+        startDate,
+        endDate,
+        minDate,
+        maxDate,
+        showPrice: true,
+        format: "DD/MM/YYYY"
+      });
+
+      startDate.setDate(startDate.getDate() + 1);
+      endDate.setDate(endDate.getDate() + 2)
+      // picker.setDateRange(startDate, endDate);
+      startDate.setDate(startDate.getDate() + 1);
+      picker.selectStartDate(startDate);
+      picker.selectEndDate(endDate);
+      picker.goToNextMonth();
+      picker.goToPrevMonth();
+      picker.setPriceList(prices)
+      console.log(picker.getCurrentDateRange());      
+    </script>
+
+    <script>
+        function logSubmit(event) {
+            event.preventDefault();
+            const hotel = form.elements['hotel-selector'].value;
+            const checkIn = form.elements['check-in'].value;
+            const checkOut = form.elements['check-out'].value;
+            const rooms = form.elements['rooms-selector'].value;
+            const guests = form.elements['guests-selector'].value;
+            const promoCode = form.elements['promo-code'].value;
+            const formData = {hotel, checkIn, checkOut, rooms, guests, promoCode};
+            
+            
+            console.log(formData);
+        }
+        const form = document.getElementById('accommodations');
+        form.addEventListener('submit', logSubmit);
+    </script>
+  </body>
+</html>
