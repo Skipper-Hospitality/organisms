@@ -1,11 +1,9 @@
 "use strict";
+import { extend, isDate, isHidden, inBetween, addEvent, removeEvent, addClass, removeClass, hasClass, getDaysInMonth, setToStartOfDay, compareDates } from './utility.js';
 
-const hasEventListeners = !!window.addEventListener;
+
 const sto = window.setTimeout;
-const priceList = [
-  38, 27, 23, 24, 40, 28, 36, 41, 28, 22, 30, 45, 41, 35, 42, 28, 20, 22, 42,
-  29, 35, 39, 32, 21, 45, 43, 50, 24, 35, 25, 36, 33,
-];
+
 const defaults = {
   // bind the picker to a form field
   checkIn: null,
@@ -100,114 +98,6 @@ const defaults = {
   onOpen: null,
   onClose: null,
 };
-const addEvent = function (el, e, callback, capture) {
-  if (hasEventListeners) {
-    el.addEventListener(e, callback, !!capture);
-  } else {
-    el.attachEvent("on" + e, callback);
-  }
-};
-
-const removeEvent = function (el, e, callback, capture) {
-  if (hasEventListeners) {
-    el.removeEventListener(e, callback, !!capture);
-  } else {
-    el.detachEvent("on" + e, callback);
-  }
-};
-
-const trim = function (str) {
-  return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, "");
-};
-
-const hasClass = function (el, cn) {
-  return (" " + el.className + " ").indexOf(" " + cn + " ") !== -1;
-};
-
-const addClass = function (el, cn) {
-  if (!hasClass(el, cn)) {
-    el.className = el.className === "" ? cn : el.className + " " + cn;
-  }
-};
-
-const removeClass = function (el, cn) {
-  el.className = trim((" " + el.className + " ").replace(" " + cn + " ", " "));
-};
-
-const isArray = function (obj) {
-  return /Array/.test(Object.prototype.toString.call(obj));
-};
-
-const isDate = function (obj) {
-  return (
-    /Date/.test(Object.prototype.toString.call(obj)) && !isNaN(obj.getTime())
-  );
-};
-
-const isLeapYear = function (year) {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-};
-
-const isHidden = ( el ) => {
-  return (el.offsetParent === null)
-}
-
-const getDaysInMonth = function (year, month) {
-  return [
-    31,
-    isLeapYear(year) ? 29 : 28,
-    31,
-    30,
-    31,
-    30,
-    31,
-    31,
-    30,
-    31,
-    30,
-    31,
-  ][month];
-};
-
-const setToStartOfDay = function (date) {
-  if (isDate(date)) date.setHours(0, 0, 0, 0);
-};
-
-const compareDates = function (a, b) {
-  return a.getTime() === b.getTime();
-};
-
-const inBetween = function (start, end, date) {
-  return  end.getTime() > date.getTime() && date.getTime() > start.getTime();
-}
-
-const extend = function (to, from, overwrite) {
-  let prop, hasProp;
-  for (prop in from) {
-    hasProp = to[prop] !== undefined;
-    if (
-      hasProp &&
-      typeof from[prop] === "object" &&
-      from[prop] !== null &&
-      from[prop].nodeName === undefined
-    ) {
-      if (isDate(from[prop])) {
-        if (overwrite) {
-          to[prop] = new Date(from[prop].getTime());
-        }
-      } else if (isArray(from[prop])) {
-        if (overwrite) {
-          to[prop] = from[prop].slice(0);
-        }
-      } else {
-        to[prop] = extend({}, from[prop], overwrite);
-      }
-    } else if (overwrite || !hasProp) {
-      to[prop] = from[prop];
-    }
-  }
-  return to;
-};
 
 const fireEvent = function (el, eventName, data) {
   let ev;
@@ -271,7 +161,7 @@ const renderDay = function (opts) {
   }
 
   let innerEle = opts.showPrice
-    ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">${opts.price ? '$' + opts.price : ''}</div></div>`
+    ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">${opts.price ? '$' + opts.price : '--'}</div></div>`
     : `${opts.day}`;
 
   return (
@@ -355,7 +245,7 @@ const renderTable = function (opts, data, randId) {
   );
 };
 
-let DayRangePicker = function (options) {
+export let DayRangePicker = function (options) {
   let self = this;
   let opts = self.config(options);
   
@@ -544,10 +434,10 @@ DayRangePicker.prototype = {
 
     //Set initial values
     if(isDate(this._o.startDate)){
-      this.setStartDate(startDate);
+      this.setStartDate(this._o.startDate);
     }
     if(isDate(this._o.endDate)){
-      this.setEndDate(endDate);
+      this.setEndDate(this._o.endDate);
     }
 
     return opts;

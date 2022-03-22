@@ -1,12 +1,16 @@
 @charset "UTF-8";
+/* Import your css file here */
+@import url('http://fonts.cdnfonts.com/css/abeezee');
 
 .daypicker-range {
-  --daypicker-primary-color: #ffffff;
-  --daypicker-inactive-color: #999;
+  --daypicker-primary-color: #F6F4F2;
+  --daypicker-inactive-color: #94A3B8;
   --daypicker-active-color: #E3E200;
   --daypicker-border: #fff;
   --bg-daypicker-inactive-color: #2E5162;
   --bg-daypicker: #253846;
+  --bg-daypicker-range: #253846;
+  --primary-font:  "ABeeZee", sans-serif;
   z-index: 9999;
   display: block;
   position: relative;
@@ -14,7 +18,7 @@
   background: var(--bg-daypicker);
   border: 1px solid #ccc;
   border-bottom-color: #bbb;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--primary-font);
 }
 
 .days-name {
@@ -114,12 +118,45 @@ th {
 
 .daypicker-prev {
   float: left;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M12 21L2 11L12 1' stroke='red' stroke-width='2'/></g></svg>") no-repeat;
+  width: 13px;
+  height: 22px;
+  position: relative;
+}
+
+.daypicker-prev::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M12 21L2 11L12 1' stroke='white' stroke-width='2'/></g></svg>") no-repeat;
+  /* -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M1 1L11 11L1 21' stroke='white' stroke-width='2'/></g></svg>") no-repeat; */
+  background:var(--daypicker-primary-color);
+  border-radius: 16px;
 }
 
 .daypicker-next {
   float: right;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M1 1L11 11L1 21' stroke='red' stroke-width='2'/></g></svg>") no-repeat;
+  width: 13px;
+  height: 22px;
+  position: relative;
+  /* background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M1 1L11 11L1 21' stroke='red' stroke-width='2'/></g></svg>") no-repeat; */
+  /* background: var(--daypicker-primary-color);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 129 129'%3E%3Cpath d='m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z' /%3E%3C/svg%3E") ;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 129 129'%3E%3Cpath d='m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z' /%3E%3C/svg%3E"); */
+}
+
+.daypicker-next::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 22' width='13' height='22'  fill='none'><g><path d='M1 1L11 11L1 21' stroke='white' stroke-width='2'/></g></svg>") no-repeat;
+  background:var(--daypicker-primary-color);
+  border-radius: 16px;
 }
 
 .daypicker-prev.is-disabled,
@@ -168,6 +205,7 @@ th {
   font-size: 16px;
   text-align: center;
   background: var(--bg-daypicker-range);
+  font-family: var(--primary-font);
 }
 
 @media (max-width: 767px) {
@@ -271,12 +309,13 @@ th {
 
 .day-box{
   display: grid;
+  text-align: center;
 }
 .day-date{
-  text-align: left;
+  text-align: right;
   font-size: 20px;
 }
 .day-price{
-  text-align: right;
+  text-align: left;
   font-size: 12px;
 }
