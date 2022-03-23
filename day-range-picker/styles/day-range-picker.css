@@ -5,19 +5,21 @@
 .daypicker-range {
   --daypicker-primary-color: #F6F4F2;
   --daypicker-inactive-color: #94A3B8;
-  --daypicker-active-color: #E3E200;
+  --daypicker-active-color: #d1d106;
   --daypicker-border: #fff;
   --bg-daypicker-inactive-color: #2E5162;
   --bg-daypicker: #253846;
   --bg-daypicker-range: #253846;
+  --daypicker-border: #ccc;
+  --daypicker-accent-color: #bebe04;
   --primary-font:  "ABeeZee", sans-serif;
   z-index: 9999;
   display: block;
   position: relative;
   color: var(--daypicker-primary-color); /*COLOR: #2E5162*/
   background: var(--bg-daypicker);
-  border: 1px solid #ccc;
-  border-bottom-color: #bbb;
+  /* border: 1px solid var(--daypicker-border);
+  border-bottom-color: var(--daypicker-border); */
   font-family: var(--primary-font);
 }
 
@@ -216,11 +218,6 @@ th {
   }
 }
 
-.daypicker-week {
-  font-size: 11px;
-  color: #999;
-}
-
 .is-today .daypicker-button {
   color: var(--daypicker-active-color);
   font-weight: bold;
@@ -234,18 +231,12 @@ th {
   /* border-radius: 3px; */
 }
 
-.is-selected .daypicker-button,
-.has-event .daypicker-button {
-  color: #fff;
+.is-selected .daypicker-button {
+  color: var(--daypicker-primary-color);
   font-weight: bold;
   background: var(--daypicker-active-color);
   box-shadow: inset 0 1px 3px var(--daypicker-active-color);
   /* border-radius: 3px; */
-}
-
-.has-event .daypicker-button {
-  background: #005da9;
-  box-shadow: inset 0 1px 3px #0076c9;
 }
 
 .is-disabled .daypicker-button,
@@ -253,30 +244,11 @@ th {
   background: var(--bg-daypicker-inactive-color);
 }
 
-.is-startrange .daypicker-button {
-  color: #fff;
-  background: #6cb31d;
-  box-shadow: none;
-  /* border-radius: 3px; */
-}
-
-.is-endrange .daypicker-button {
-  color: #fff;
-  background: #33aaff;
-  box-shadow: none;
-  /* border-radius: 3px; */
-}
-
 .is-disabled .daypicker-button {
   pointer-events: none;
   cursor: default;
   /* color: #999; */
   color: var(--daypicker-inactive-color);
-  opacity: 0.3;
-}
-
-.is-outside-current-month .daypicker-button {
-  color: #999;
   opacity: 0.3;
 }
 
@@ -295,8 +267,8 @@ th {
 }
 .daypicker-button:hover,
 .daypicker-row.pick-whole-week:hover .daypicker-button {
-  color: #fff;
-  background: #ff8000;
+  color: var(--daypicker-primary-color);
+  background: var(--daypicker-accent-color);
   box-shadow: none;
   /* border-radius: 3px; */
 }
