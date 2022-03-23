@@ -1,7 +1,13 @@
 {
-  "name": "organisms",
-  "private": true,
-  "version": "0.0.0",
+  "name": "skipper-organisms",
+  "version": "0.0.1",
+  "description": "A vanilla JavaScript library for skipperhospitality management",
+  "type": "module",
+  "module": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./DayRangePicker": "./day-range-picker/day-range-picker.js"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -9,5 +15,23 @@
   },
   "devDependencies": {
     "vite": "^2.8.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skipper-Hospitality/organisms"
+  },
+  "keywords": [
+    "datepicker",
+    "daterangepicker",
+    "date-range-picker",
+    "calendar",
+    "daypicker",
+    "dayrangepicker"
+  ],
+  "author": "Nazmul Alam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Skipper-Hospitality/organisms/issues"
+  },
+  "homepage": "https://github.com/Skipper-Hospitality/organisms/blob/main/day-range-picker/documentation.md"
 }
