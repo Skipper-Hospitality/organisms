@@ -1,13 +1,12 @@
 {
   "name": "skipper-organisms",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A vanilla JavaScript library for skipperhospitality management",
   "type": "module",
   "module": "index.js",
   "exports": {
     ".": "./index.js",
-    "./DayRangePicker": "./day-range-picker/day-range-picker.js",
-    "./DayRangePicker.css": "./day-range-picker/styles/day-range-picker.css"
+    "./day-range-picker.css": "./day-range-picker/styles/day-range-picker.css"
   },
   "scripts": {
     "dev": "vite",
