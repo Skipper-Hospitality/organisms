@@ -245,7 +245,7 @@ const renderTable = function (opts, data, randId) {
   );
 };
 
-export let DayRangePicker = function (options) {
+export default let DayRangePicker = function (options) {
   let self = this;
   let opts = self.config(options);
   
