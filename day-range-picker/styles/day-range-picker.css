@@ -1,6 +1,6 @@
-@charset "UTF-8";
 /* Import your css file here */
 @import url('http://fonts.cdnfonts.com/css/abeezee');
+/* @charset "UTF-8"; */
 
 .daypicker-range {
   --daypicker-primary-color: #F6F4F2;
