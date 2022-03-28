@@ -1,0 +1,13 @@
+{
+    "name": "day-range-picker",
+    "version": "0.0.4",
+    "author": "Nazmul Alam",
+    "description": "A day range picker for skipper hospitality organisms",
+    "main": "dist/day-range-picker.es.js",
+    "module": "dist/day-range-picker.es.js",
+    "scripts": {
+        "build": "vite build",
+        "build:watch": "vite build --watch"
+    },
+    "types": "./src/day-range-picker.d.js"
+}

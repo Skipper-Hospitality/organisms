@@ -1,0 +1,13 @@
+{
+    "npmClient": "npm",
+    "command": {
+        "publish": {
+            "allowBranch": "main",
+            "conventionalCommits": true,
+            "message": "chore(release): publish",
+            "ignoreChanges": ["*.md", ".spec.ts", ".stories.ts"]
+        }
+    },
+    "packages": ["packages/*"],
+    "version": "independent"
+}

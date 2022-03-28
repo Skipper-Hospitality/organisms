@@ -10,10 +10,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "lerna run build",
+    "build:watch": "lerna run build:watch",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "lerna": "^4.0.0",
     "vite": "^2.8.0"
   },
   "repository": {
@@ -33,5 +35,6 @@
   "bugs": {
     "url": "https://github.com/Skipper-Hospitality/organisms/issues"
   },
-  "homepage": "https://github.com/Skipper-Hospitality/organisms/blob/main/day-range-picker/documentation.md"
+  "homepage": "https://github.com/Skipper-Hospitality/organisms/blob/main/day-range-picker/documentation.md",
+  "dependencies": {}
 }
