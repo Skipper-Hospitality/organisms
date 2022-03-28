@@ -1,7 +1,14 @@
-# organisms
-for skipper developed open source UI elements
+# Skipper Organisms
+Open source UI elements developed by [SkipperHospitality](https://www.skipperhospitality.com/)
 
-{% include "git+https://github.com/blah/button-color.git/README.md" %}
+### Table of Contents
+
+* [Day Range Picker](#day-range-picker)
+    * [Basic Structure](#basic-structure)
+    * [Show Date on HTML Label attribute](#show-date-on-html-label-attribute)
+    * [Applying DateRange Picker](#applying-daterange-picker)
+    * [Parameter List](#parameter-list)
+    * [DateRange API's](#daterange-apis)
 
 # Day Range Picker
 write the required markup to build your date range picker.
@@ -24,7 +31,7 @@ This is the basic HTML structure that DateRange picker requires:
 ```
 
 
-## Show date on label HTML
+## Show Date on HTML Label attribute 
 You may need to show dates into lable instead of input box:
 
 ```html
@@ -108,7 +115,7 @@ You may need to show dates into lable instead of input box:
 | minDate | False | Date | The minimum/earliest date that can be selected
 | maxDate | False | Date | The maximum/latest date that can be selected
 
-## **API**
+## **DateRange API's**
 
 ### **.goToNextMonth()**
 Change **Calendar** view to next month. 
