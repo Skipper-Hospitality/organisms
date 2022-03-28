@@ -61,10 +61,22 @@ You may need to show dates into lable instead of input box:
 
 # Applying DateRange Picker
 
-## Using Import
+## Import Package
 
 ```js
+//via npm 
+npm i skipper-organisms
+
+import { DayRangePicker } from "skipper-organisms";
+
+
+//via cdn
 <script src="./day-range-picker/day-range-picker.js"></script>
+```
+
+## Import Styles file
+```js
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.min.css">
 ```
 
 ## Creating Component
@@ -114,6 +126,8 @@ You may need to show dates into lable instead of input box:
 | numberOfMonths | False | Number | Number of month to show, Default = *2*
 | minDate | False | Date | The minimum/earliest date that can be selected
 | maxDate | False | Date | The maximum/latest date that can be selected
+
+
 
 ## **DateRange API's**
 

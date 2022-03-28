@@ -5,7 +5,9 @@
         <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Organisms</title>
-        <link rel="stylesheet" href="../styles/day-range-picker.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.min.css">
+        <!-- <link rel="stylesheet" href="../styles/day-range-picker.css"/> -->
+
     </head>
     <body>
         <a href="/calendar.html">Date Range Picker</a>
@@ -41,8 +43,9 @@
                 </label>
             </div>
         </div>
-        <script src="../day-range-picker.js" type="module"></script>
-        <script>
+        <script type="module">
+            import { DayRangePicker } from "https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.es.js";
+
             const prices = [
                 {
                     date: '2022-03-05T14:48:00.000Z',
@@ -84,34 +87,37 @@
             let maxDate = new Date();
             maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
 
+            // document.addEventListener("DOMContentLoaded", function () {
+                console.log('DOMContentLoaded');
+                var picker = new DayRangePicker({
+                    checkIn,
+                    checkInLabel,
+                    checkOut,
+                    checkOutLabel,
+                    startDate,
+                    endDate,
+                    minDate,
+                    maxDate,
+                    showPrice: true,
+                    format: "DD/MM/YYYY"
+                });
+
+                startDate.setDate(startDate.getDate() + 1);
+                endDate.setDate(endDate.getDate() + 2)
+                // picker.setDateRange(startDate, endDate);
+                startDate.setDate(startDate.getDate() + 1);
+                picker.selectStartDate(startDate);
+                picker.selectEndDate(endDate);
+                picker.goToNextMonth();
+                picker.goToPrevMonth();
+                picker.setPriceList(prices)
+                console.log(picker.getCurrentDateRange());
+                console.log(picker.getCurrentEndDate());
+                console.log(picker.getCurrentStartDate());
+            // });
             // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
 
             //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
-            var picker = new DayRangePicker({
-                checkIn,
-                checkInLabel,
-                checkOut,
-                checkOutLabel,
-                startDate,
-                endDate,
-                minDate,
-                maxDate,
-                showPrice: true,
-                format: "DD/MM/YYYY"
-            });
-
-            startDate.setDate(startDate.getDate() + 1);
-            endDate.setDate(endDate.getDate() + 2)
-            // picker.setDateRange(startDate, endDate);
-            startDate.setDate(startDate.getDate() + 1);
-            picker.selectStartDate(startDate);
-            picker.selectEndDate(endDate);
-            picker.goToNextMonth();
-            picker.goToPrevMonth();
-            picker.setPriceList(prices)
-            console.log(picker.getCurrentDateRange());
-            console.log(picker.getCurrentEndDate());
-            console.log(picker.getCurrentStartDate());
         </script>
     </body>
 </html>
