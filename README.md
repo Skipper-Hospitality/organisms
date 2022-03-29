@@ -7,6 +7,7 @@ Open source UI elements developed by [SkipperHospitality](https://www.skipperhos
     * [Basic Structure](#basic-structure)
     * [Show Date on HTML Label attribute](#show-date-on-html-label-attribute)
     * [Applying DateRange Picker](#applying-daterange-picker)
+    * [Update Style](#update-style-file)
     * [Parameter List](#parameter-list)
     * [DateRange API's](#daterange-apis)
 
@@ -68,10 +69,19 @@ You may need to show dates into lable instead of input box:
 npm i skipper-organisms
 
 import { DayRangePicker } from "skipper-organisms";
+```
 
+### **Importing from CDN**
+```js
+//CSS CDN:
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.min.css">
 
-//via cdn
-<script src="./day-range-picker/day-range-picker.js"></script>
+//Javascript CDN:
+//CJS
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.cjs.min.js"></script>
+
+//ES
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.es.min.js" type="module"></script>
 ```
 
 ## Import Styles file
@@ -79,6 +89,23 @@ import { DayRangePicker } from "skipper-organisms";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.min.css">
 ```
 
+## Update Style file
+You can also update your calendar widget **styles** by overwrite following css variables.
+
+```js
+.daypicker-range {
+    --daypicker-primary-color: #F6F4F2;
+    --daypicker-inactive-color: #94A3B8;
+    --daypicker-active-color: #d1d106;
+    --daypicker-border: #fff;
+    --bg-daypicker-inactive-color: #2E5162;
+    --bg-daypicker: #253846;
+    --bg-daypicker-range: #253846;
+    --daypicker-border: #ccc;
+    --daypicker-accent-color: #bebe04;
+    --primary-font: "ABeeZee", sans-serif;
+}
+```
 ## Creating Component
 
 ```js
