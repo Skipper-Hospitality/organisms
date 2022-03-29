@@ -1,0 +1,116 @@
+.form_container {
+    --primary-accommodation-search-form: #ffffff;
+    --secondary-accommodation-search-form: #e3e200;
+    --bg-accommodation-search-form: #253745;
+    --bg-accommodation-search-form-input-box: #253745;
+    --border-accommodation-search-form: #617c87;
+    display: flex;
+    position: absolute;
+    bottom: 30vh;
+    width: 100%;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.booking_form {
+    display: flex;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    background: var(--bg-accommodation-search-form);
+    padding: 0 25px;
+}
+.form_label {
+    color: var(--primary-accommodation-search-form);
+    font-size: 12px;
+    padding-bottom: 4px;
+}
+
+.booking_form select {
+    min-width: 60px;
+    max-width: 250px;
+    padding: 7px 14px;
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--secondary-accommodation-search-form);
+    background: var(--bg-accommodation-search-form-input-box);
+    border-radius: 0.25em;
+    cursor: pointer;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' role='img' width='1em' height='1em' preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'%3E%3Cpath fill='%23E3E200' fill-rule='evenodd' d='m6 7l6 6l6-6l2 2l-8 8l-8-8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+.booking_form .promo-code {
+    width: 80px;
+    padding: 7px;
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--secondary-accommodation-search-form);
+    background: var(--bg-accommodation-search-form-input-box);
+    border-radius: 0.25em;
+    border: 1px solid var(--border-accommodation-search-form);
+}
+
+.datepicker {
+    width: 50px;
+    padding: 7px;
+    color: var(--secondary-accommodation-search-form);
+    background: var(--bg-accommodation-search-form-input-box);
+    border: none;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    cursor: pointer;
+}
+.datepicker small {
+    display: block;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+}
+
+.booking_form .submit_button {
+    width: 154px;
+    height: 40px;
+    align-self: center;
+    background: var(--secondary-accommodation-search-form);
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 100%;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.grid {
+    display: grid;
+}
+.p-6 {
+    padding: 24px;
+}
+.px-3 {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.pt-4 {
+    padding-top: 16px;
+}
+.pb-7 {
+    padding-bottom: 28px;
+}
+.text-center {
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+
+option {
+    margin: 20px;
+    color: var(--primary-accommodation-search-form);
+    font-size: 16px;
+    line-height: 28px;
+    cursor: pointer;
+}
