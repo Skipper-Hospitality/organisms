@@ -1,3 +1,4 @@
+var accommodationSearchForm = "";
 const extend = function(to, from, overwrite) {
   let prop, hasProp;
   for (prop in from) {
@@ -23,7 +24,6 @@ const extend = function(to, from, overwrite) {
 const isDate = function(obj) {
   return /Date/.test(Object.prototype.toString.call(obj)) && !isNaN(obj.getTime());
 };
-var accommodationSearchForm = "";
 const defaults = {
   blockId: "",
   blockClass: "",
@@ -32,10 +32,9 @@ const defaults = {
   checkOut: null,
   rooms: 1,
   promoCode: null,
-  showAccommodations: false,
+  showAccommodations: true,
   showDatesLabel: true,
   showPromocode: true,
-  format: "YYYY-MM-DD",
   monthsShort: [
     "Jan",
     "Feb",
@@ -49,9 +48,7 @@ const defaults = {
     "Oct",
     "Nov",
     "Dec"
-  ],
-  minDate: null,
-  maxDate: null
+  ]
 };
 const renderHotels = (hotels) => {
   let optEle = "";
@@ -190,7 +187,7 @@ AccomodationForm.prototype = {
   render: function() {
     this._o.el.classList.add("form_container");
     let hotelsEle = "";
-    if (this._o.accommodations.length > 0) {
+    if (this._o.accommodations.length > 0 && this._o.showAccommodations) {
       hotelsEle = renderHotels(this._o.accommodations);
     }
     let checkInEle = renderDate("check-in", this._o);

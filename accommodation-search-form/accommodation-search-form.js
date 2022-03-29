@@ -1,5 +1,39 @@
-import { extend } from "./utility.js";
 import "./styles/accommodation-search-form.css";
+
+const extend = function (to, from, overwrite) {
+    let prop, hasProp;
+    for (prop in from) {
+        hasProp = to[prop] !== undefined;
+        if (
+            hasProp &&
+            typeof from[prop] === "object" &&
+            from[prop] !== null &&
+            from[prop].nodeName === undefined
+        ) {
+            if (isDate(from[prop])) {
+                if (overwrite) {
+                    to[prop] = new Date(from[prop].getTime());
+                }
+            } else if (Array.isArray(from[prop])) {
+                if (overwrite) {
+                    to[prop] = from[prop].slice(0);
+                }
+            } else {
+                to[prop] = extend({}, from[prop], overwrite);
+            }
+        } else if (overwrite || !hasProp) {
+            to[prop] = from[prop];
+        }
+    }
+    return to;
+};
+
+const isDate = function (obj) {
+    return (
+        /Date/.test(Object.prototype.toString.call(obj)) &&
+        !isNaN(obj.getTime())
+    );
+};
 
 const defaults = {
     blockId: "",
