@@ -10,6 +10,7 @@ Open source UI elements developed by [SkipperHospitality](https://www.skipperhos
     * [Update Style](#update-style-file)
     * [Parameter List](#parameter-list)
     * [DateRange API's](#daterange-apis)
+* [Accommodation Search Form](#accommodation-search-form)
 
 # Day Range Picker
 write the required markup to build your date range picker.
@@ -245,3 +246,96 @@ Set price list for calendar
 // @return: null
 picker.setPriceList(prices);
 ```
+
+
+
+# Accommodation Search Form
+write the required markup to build your Accomodation Form
+
+## Basic Structure
+This is the basic HTML structure that DateRange picker requires:
+
+```html
+<div id="accommodation-search-form">Form</div>
+```
+
+## Import Form Package
+
+```js
+//via npm 
+npm i skipper-organisms
+
+import { AccomodationForm } from "skipper-organisms";
+```
+
+### **Importing Form from CDN**
+```js
+//CSS CDN:
+
+
+//Javascript CDN:
+//CJS
+
+
+//ES
+
+```
+
+## Import Form Styles file
+```js
+
+```
+
+## Update Form Style file
+You can also update your calendar widget **styles** by overwrite following css variables.
+
+```js
+.form_container {
+    --primary-accommodation-search-form: #ffffff;
+    --secondary-accommodation-search-form: #e3e200;
+    --bg-accommodation-search-form: #253745;
+    --bg-accommodation-search-form-input-box: #253745;
+    --border-accommodation-search-form: #617c87;
+}
+```
+
+## Creating Form Component
+
+```js
+    const accommodations = [
+                "Pod 39 New York",
+                "Pod 51 New York",
+                "Pod Times Square New York",
+                "Pod Brooklyn New York",
+                "Pod Pads @ Times Square",
+    ];
+    var accommodationForm = new AccomodationForm({
+        blockId: "accommodation-search-form",
+        accommodations,
+        format: "DD/MM/YYYY",
+    });
+```
+
+## Form Submission Event Listener
+```js
+    document.addEventListener(
+        "accommodation-search-form-submitted",
+        function (e) {
+            console.log(e.detail); // Prints "Example of an event"
+        }
+    );
+```
+
+## Form Parameter List
+
+| Parameter | Required | Types of Ele. | Description | 
+| ------ | ------ | ----- | ----- |
+| blockId | True | string | Id of `div` to be rendered
+| blockClass | false | string | Class name of `div` to be rendered required if `blockId` is empty
+| accommodations | false | string array | List of Accommodations
+| checkIn | False | date | Default CheckIn Date
+| checkOut | False | date | Default CheckOut Date
+| showAccommodations | false | Boolean | Accomodation list to be show or not
+| showDatesLabel | False | Boolean | Input date fileds should be override or not
+| showPromocode | False | Boolean | Promocode Field to be show or not
+

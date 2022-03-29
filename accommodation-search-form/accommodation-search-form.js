@@ -10,11 +10,9 @@ const defaults = {
     rooms: 1,
     promoCode: null,
 
-    showAccommodations: false,
+    showAccommodations: true,
     showDatesLabel: true,
     showPromocode: true,
-
-    format: "YYYY-MM-DD",
 
     monthsShort: [
         "Jan",
@@ -30,9 +28,6 @@ const defaults = {
         "Nov",
         "Dec",
     ],
-
-    minDate: null,
-    maxDate: null,
 };
 
 const renderHotels = (hotels) => {
@@ -198,7 +193,7 @@ AccomodationForm.prototype = {
     render: function () {
         this._o.el.classList.add("form_container");
         let hotelsEle = "";
-        if (this._o.accommodations.length > 0) {
+        if (this._o.accommodations.length > 0 && this._o.showAccommodations) {
             hotelsEle = renderHotels(this._o.accommodations);
         }
         let checkInEle = renderDate("check-in", this._o);
