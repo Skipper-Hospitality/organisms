@@ -43,6 +43,8 @@ const defaults = {
     checkOut: null,
     rooms: 1,
     promoCode: null,
+    maxRoom: 10,
+    maxGuest: 10,
 
     showAccommodations: true,
     showDatesLabel: true,
@@ -120,42 +122,32 @@ const renderDate = (type, options) => {
         ${valEle}
     </div>`;
 };
-const renderRooms = () => {
+const renderRooms = (opts) => {
+    let roomsEle = "";
+    for (let i = 1; i <= opts.maxRoom; i++) {
+        roomsEle += `<option ${i==1?'selected':''} value="${i}">${i}</option>`;
+    }
     return `
-    <div class="grid px-3 pt-4 pb-7">
-        <label class="form_label" for="rooms-selector">Rooms</label>
-        <select id="rooms-selector" name="rooms-selector">
-            <option selected="" value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-    </div>`;
+        <div class="grid px-3 pt-4 pb-7">
+            <label class="form_label" for="rooms-selector">Rooms</label>
+            <select id="rooms-selector" name="rooms-selector">
+                ${roomsEle}                
+            </select>
+        </div>`;
 };
-const renderGuest = () => {
+const renderGuest = (opts) => {
+    let guestEle = "";
+    for (let i = 1; i <= opts.maxGuest; i++) {
+        guestEle += `<option ${i==1?'selected':''} value="${i}">${i}</option>`;
+    }
     return `
-    <div class="grid px-3 pt-4 pb-7"> 
-        <label class="form_label" for="guests-selector" >Guests</label > 
-        <select name="guests-selector" id="guests-selector"> 
-            <option selected="" value="1">1</option> 
-            <option value="2">2</option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-        </select> 
-    </div>
-    `;
+        <div class="grid px-3 pt-4 pb-7"> 
+            <label class="form_label" for="guests-selector" >Guests</label > 
+            <select name="guests-selector" id="guests-selector"> 
+                ${guestEle}
+            </select> 
+        </div>
+        `;
 };
 const renderPromoCode = () => {
     return `
@@ -237,8 +229,8 @@ AccomodationForm.prototype = {
             ${hotelsEle}
             ${checkInEle}
             ${checkOutEle}
-            ${renderRooms()}
-            ${renderGuest()}
+            ${renderRooms(this._o)}
+            ${renderGuest(this._o)}
             ${this._o.showPromocode ? renderPromoCode() : ""}
             ${renderButtn()}
         </form>

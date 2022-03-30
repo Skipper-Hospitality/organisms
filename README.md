@@ -335,6 +335,8 @@ You can also update your calendar widget **styles** by overwrite following css v
 | accommodations | false | string array | List of Accommodations
 | checkIn | False | date | Default CheckIn Date
 | checkOut | False | date | Default CheckOut Date
+| maxRoom | False | Number | Maximum Number of rooms that can be select ( Default 10)
+| maxGuest | Flase | Number | Maximum Number of Guests that can be select (Default 10)
 | showAccommodations | false | Boolean | Accomodation list to be show or not
 | showDatesLabel | False | Boolean | Input date fileds should be override or not
 | showPromocode | False | Boolean | Promocode Field to be show or not

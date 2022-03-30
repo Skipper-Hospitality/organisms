@@ -10,7 +10,7 @@
   <body>
     <div id="app">Home page</div>
     <a href="/calendar.html">Date Range Picker</a>
-    <a href="http://localhost:3000/accommodation-search-form/examples/accommodation-search-form.html">Accomation Seach Form</a>
+    <a href="./accommodation-search-form/examples/accommodation-search-form.html">Accomation Seach Form</a>
     <div>
       <div class="grid px-3 pt-4 pb-7">
         <label class="form_label text-center">Check In</label>
@@ -130,6 +130,12 @@
         accommodations,
         format: "DD/MM/YYYY"
       });
+      document.addEventListener(
+          "accommodation-search-form-submitted",
+          function (e) {
+              console.log(e.detail); // Prints "Example of an event"
+          }
+      );
     </script>
   </body>
 </html>
