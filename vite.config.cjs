@@ -11,12 +11,13 @@ module.exports = defineConfig({
         cssCodeSplit: true,
         rollupOptions: {
             input: {
+                'organism': path.resolve(__dirname, "./index.js"),
                 'day-range-picker': path.resolve(__dirname, "./day-range-picker/day-range-picker.js"), 
+                'accommodation-search-form': path.resolve(__dirname, "./accommodation-search-form/accommodation-search-form.js"),
             },
             output: {
                 assetFileNames: `[name].[ext]`,
-                entryFileNames: fn => { 
-                    console.log(fn.modules);
+                entryFileNames: fn => {
                     return `[name].[format].js`
                 },
             },

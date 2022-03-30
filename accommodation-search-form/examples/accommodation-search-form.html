@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Organisms/Accommodations Search Form</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.min.css"
+        />
+        <style>
+            body {
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="accommodation-search-form">Form</div>
+        <!-- Binding from -->
+        <script type="module">
+            import { AccomodationForm } from "../accommodation-search-form.js";
+            const accommodations = [
+                "Pod 39 New York",
+                "Pod 51 New York",
+                "Pod Times Square New York",
+                "Pod Brooklyn New York",
+                "Pod Pads @ Times Square",
+            ];
+            var accommodationForm = new AccomodationForm({
+                blockId: "accommodation-search-form",
+                blockClass: "accommodation-search-form",
+                accommodations,
+                maxRoom: 8,
+                maxGuest: 8,
+                format: "DD/MM/YYYY",
+            });
+
+            document.addEventListener(
+                "accommodation-search-form-submitted",
+                function (e) {
+                    console.log(e.detail); // Prints "Example of an event"
+                }
+            );
+        </script>
+
+        <!-- Add Calender component into Form -->
+        <script type="module">
+            import { DayRangePicker } from "https://cdn.jsdelivr.net/npm/skipper-organisms@0.0.5/dist/day-range-picker.es.js";
+
+            const prices = [
+                {
+                    date: "2022-03-05T14:48:00.000Z",
+                    price: 110,
+                },
+                {
+                    date: "2022-03-06T14:48:00.000Z",
+                    price: 112,
+                },
+                {
+                    date: "2022-03-07T14:48:00.000Z",
+                    price: 111,
+                },
+                {
+                    date: "2022-03-09T14:48:00.000Z",
+                    price: 115,
+                },
+                {
+                    date: "2022-03-11T14:48:00.000Z",
+                    price: 110,
+                },
+                {
+                    date: "2022-03-14T14:48:00.000Z",
+                    price: 122,
+                },
+                {
+                    date: "2022-03-15T14:48:00.000Z",
+                    price: 121,
+                },
+                {
+                    date: "2022-03-19T14:48:00.000Z",
+                    price: 121,
+                },
+            ];
+            const checkIn = document.getElementById("datepicker-check-in");
+            const checkInLabel = document.getElementById(
+                "datepicker-check-in-label"
+            );
+            const checkOut = document.getElementById("datepicker-check-out");
+            const checkOutLabel = document.getElementById(
+                "datepicker-check-out-label"
+            );
+
+            let startDate = new Date();
+            startDate.setDate(startDate.getDate() + 1);
+            let endDate = new Date();
+            endDate.setDate(endDate.getDate() + 2);
+            let minDate = new Date();
+            minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
+            let maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
+
+            if (checkIn) {
+                var picker = new DayRangePicker({
+                    checkIn,
+                    checkInLabel,
+                    checkOut,
+                    checkOutLabel,
+                    startDate,
+                    endDate,
+                    minDate,
+                    maxDate,
+                    showPrice: true,
+                    format: "DD/MM/YYYY",
+                });
+
+                startDate.setDate(startDate.getDate() + 1);
+                endDate.setDate(endDate.getDate() + 2);
+                // picker.setDateRange(startDate, endDate);
+                startDate.setDate(startDate.getDate() + 1);
+                picker.selectStartDate(startDate);
+                picker.selectEndDate(endDate);
+                picker.goToNextMonth();
+                picker.goToPrevMonth();
+                picker.setPriceList(prices);
+                console.log(picker.getCurrentDateRange());
+                console.log(picker.getCurrentEndDate());
+                console.log(picker.getCurrentStartDate());
+            }
+        </script>
+    </body>
+</html>

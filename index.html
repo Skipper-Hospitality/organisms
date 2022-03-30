@@ -10,6 +10,7 @@
   <body>
     <div id="app">Home page</div>
     <a href="/calendar.html">Date Range Picker</a>
+    <a href="./accommodation-search-form/examples/accommodation-search-form.html">Accomation Seach Form</a>
     <div>
       <div class="grid px-3 pt-4 pb-7">
         <label class="form_label text-center">Check In</label>
@@ -42,8 +43,11 @@
         </label>
       </div>
     </div>
-    <script src="./day-range-picker/day-range-picker.js" type="module"></script>
-    <script>
+    <div id="accommodation-search-form">Form</div>
+    <!-- <script src="./day-range-picker/day-range-picker.js" type="module"></script>  -->
+    <script type="module">
+      import {DayRangePicker} from "./day-range-picker/day-range-picker.js";
+
       const prices = [
         {
           date: '2022-03-05T14:48:00.000Z',
@@ -112,9 +116,26 @@
       picker.goToNextMonth();
       picker.goToPrevMonth();
       picker.setPriceList(prices)
-      console.log(picker.getCurrentDateRange());
-      console.log(picker.getCurrentEndDate());
-      console.log(picker.getCurrentStartDate());
+      // console.log(picker.getCurrentDateRange());
+      // console.log(picker.getCurrentEndDate());
+      // console.log(picker.getCurrentStartDate());
+    </script>
+
+    <script type="module">
+      import { AccomodationForm } from './accommodation-search-form/accommodation-search-form.js';
+      const accommodations = ["Pod 39 New York", "Pod 51 New York", "Pod Times Square New York", "Pod Brooklyn New York", "Pod Pads @ Times Square"]
+      var picker = new AccomodationForm({
+        blockId: "accommodation-search-form",
+        blockClass: "accommodation-search-form",
+        accommodations,
+        format: "DD/MM/YYYY"
+      });
+      document.addEventListener(
+          "accommodation-search-form-submitted",
+          function (e) {
+              console.log(e.detail); // Prints "Example of an event"
+          }
+      );
     </script>
   </body>
 </html>
