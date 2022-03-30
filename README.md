@@ -11,9 +11,17 @@ Open source UI elements developed by [SkipperHospitality](https://www.skipperhos
     * [Parameter List](#parameter-list)
     * [DateRange API's](#daterange-apis)
 * [Accommodation Search Form](#accommodation-search-form)
+    * [Basic Form Structure](#basic-form-structure)
+    * [Import Form Package](#import-form-package)
+    * [Update Form Style file](#update-form-style-file)
+    * [Creating Form Component](#creating-form-component)
+    * [Form Submission Event Listener](#form-submission-event-listener)
+    * [Form Parameter List](#form-parameter-list)
 
 # Day Range Picker
 write the required markup to build your date range picker.
+
+![Date Range Picker screenshot](https://raw.githubusercontent.com/Skipper-Hospitality/organisms/main/images/date-range-calendar.jpg "Get a date with JavaScript!")
 
 ## Basic Structure
 This is the basic HTML structure that DateRange picker requires:
@@ -252,7 +260,8 @@ picker.setPriceList(prices);
 # Accommodation Search Form
 write the required markup to build your Accomodation Form
 
-## Basic Structure
+![Date Range Picker screenshot](https://raw.githubusercontent.com/Skipper-Hospitality/organisms/main/images/accommodation-form.png "Get a Form with JavaScript!")
+## Basic Form Structure
 This is the basic HTML structure that DateRange picker requires:
 
 ```html
