@@ -1,3 +1,4 @@
+@import url("http://fonts.cdnfonts.com/css/questrial");
 .form_container {
     --primary-accommodation-search-form: #ffffff;
     --secondary-accommodation-search-form: #e3e200;
@@ -11,34 +12,55 @@
     -webkit-justify-content: center;
     justify-content: center;
 }
-.booking_form {
+.pod_container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.banner_image {
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+}
+.form_container {
     display: flex;
-    padding: 0;
-    font-family: "Roboto", sans-serif;
+    position: absolute;
+    bottom: 30vh;
+    width: 100%;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.booking_form {
+    font-family: "Questrial", sans-serif;
+    display: flex;
     background: var(--bg-accommodation-search-form);
     padding: 0 25px;
 }
 .form_label {
+    display: block;
     color: var(--primary-accommodation-search-form);
     font-size: 12px;
     line-height: 28px;
-    padding-bottom: 4px;
+    /* padding-bottom: 4px; */
+    padding-top: 6px;
 }
 
 .booking_form select {
     min-width: 60px;
     max-width: 250px;
     padding: 7px 14px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 28px;
     color: var(--secondary-accommodation-search-form);
     background: var(--bg-accommodation-search-form-input-box);
-    border: 0px;
     border-radius: 0.25em;
     cursor: pointer;
     -moz-appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' role='img' width='1em' height='1em' preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'%3E%3Cpath fill='%239DBFC8' fill-rule='evenodd' d='m6 7l6 6l6-6l2 2l-8 8l-8-8z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' role='img' width='1em' height='1em' preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'%3E%3Cpath fill='%23E3E200' fill-rule='evenodd' d='m6 7l6 6l6-6l2 2l-8 8l-8-8z'/%3E%3C/svg%3E");
     background-repeat: no-repeat, repeat;
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
@@ -46,7 +68,7 @@
 
 .booking_form .promo-code {
     width: 80px;
-    padding: 7px;
+    /* padding: 7px; */
     font-size: 16px;
     line-height: 28px;
     color: var(--secondary-accommodation-search-form);
@@ -57,9 +79,10 @@
 
 .datepicker {
     width: 50px;
-    padding: 7px;
+    padding: 0 7px;
     color: var(--secondary-accommodation-search-form);
     background: var(--bg-accommodation-search-form-input-box);
+    display: block;
     border: none;
     font-weight: 500;
     font-size: 24px;
@@ -68,7 +91,7 @@
 }
 .datepicker small {
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 14px;
     text-transform: uppercase;
 }
@@ -79,7 +102,7 @@
     align-self: center;
     background: var(--secondary-accommodation-search-form);
     border: none;
-    border-radius: 20px;
+    border-radius: 9px;
     font-size: 14px;
     line-height: 100%;
     cursor: pointer;
@@ -89,15 +112,28 @@
 .grid {
     display: grid;
 }
+.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .p-6 {
     padding: 24px;
 }
-.px-3 {
-    padding-left: 12px;
-    padding-right: 12px;
+.pr-4 {
+    padding-right: 16px;
+}
+.px-2 {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.px-4 {
+    padding-left: 16px;
+    padding-right: 16px;
 }
 .pt-4 {
     padding-top: 16px;
+}
+.pb-1 {
+    padding-bottom: 4px;
 }
 .pb-7 {
     padding-bottom: 28px;
@@ -111,8 +147,189 @@
 
 option {
     margin: 20px;
-    color: var(--primary-accommodation-search-form);
+    color: white;
     font-size: 16px;
     line-height: 28px;
     cursor: pointer;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.select-box {
+    /* display: flex; */
+    min-width: 42px;
+    /* flex-direction: column; */
+    position: relative;
+}
+.select-box.hotel {
+    min-width: 200px;
+}
+.select-box .options-container {
+    background: var(--bg-accommodation-search-form);
+    color: var(--primary-accommodation-search-form);
+    max-height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.4s;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+
+    position: absolute;
+    top: 50px;
+
+    /* order: 1; */
+}
+.selected {
+    /* border-radius: 8px; */
+    /* margin-bottom: 8px; */
+    color: var(--secondary-accommodation-search-form);
+    position: relative;
+    font-size: 18px;
+    line-height: 28px;
+    cursor: pointer;
+    padding: 4px 0 22px 0;
+    /* order: 0; */
+}
+.selected::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' role='img' width='1em' height='1em' preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'%3E%3Cpath fill='%239DBFC8' fill-rule='evenodd' d='m6 7l6 6l6-6l2 2l-8 8l-8-8z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    right: 10px;
+    top: 10px;
+
+    transition: all 0.4s;
+}
+.select-box .options-container.active {
+    min-width: 50px;
+    max-height: 240px;
+    opacity: 1;
+    /* overflow-y: scroll; */
+}
+.select-box .options-container.active + .selected::after {
+    transform: rotate(180deg);
+    /* top: -6px; */
+}
+
+.select-box .option > label {
+    display: block;
+    padding: 12px;
+    cursor: pointer;
+}
+.select-box .option:hover {
+    background: var(--border-accommodation-search-form);
+}
+.select-box label {
+    cursor: pointer;
+}
+.select-box .option .radio {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .booking_form {
+        flex-direction: column;
+        padding: 0;
+        min-width: 320px;
+    }
+    .selected {
+        padding: 4px 0 12px 0;
+    }
+    .hotel .selected {
+        padding: 15px 14px;
+        font-size: 14px;
+        line-height: 140%;
+    }
+    .select-box .options-container {
+        top: 62px;
+        z-index: 9;
+    }
+    .hotel .selected::after {
+        top: 20px;
+        right: 20px;
+    }
+    .datepicker small {
+        font-size: 18px;
+        line-height: 140%;
+    }
+    .form_label {
+        font-size: 16px;
+        line-height: 140%;
+    }
+    .booking_form .promo-code {
+        width: 182px;
+        margin-left: 16px;
+    }
+    .submit_button {
+        margin-bottom: 20px;
+    }
+
+    .sm\:hidden {
+        display: none;
+    }
+    .sm\:border {
+        border: 1px solid #ffffff;
+    }
+    .sm\:border-t-r {
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-color: #ffffff;
+        border-style: solid;
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+    }
+    .sm\:border-t {
+        border-top-width: 1px;
+        border-color: #ffffff;
+        border-style: solid;
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+    }
+    .sm\:flex {
+        display: flex;
+    }
+    .sm\:grid {
+        display: grid;
+    }
+    .sm\:justify-between {
+        justify-content: space-between;
+    }
+    .sm\:items-center {
+        align-items: center;
+    }
+    .sm\:text-center {
+        text-align: center;
+    }
+    .sm\:w-10 {
+        width: 40px;
+    }
+    .sm\:mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sm\:py-2 {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .sm\:py-5 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+@media (min-width: 767px) {
+    .md\:pr-4 {
+        padding-right: 1rem;
+    }
+    .md\:px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
