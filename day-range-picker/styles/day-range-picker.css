@@ -291,3 +291,15 @@ th {
   text-align: left;
   font-size: 12px;
 }
+
+@media (max-width: 767px) {
+  .daypicker-range {
+    position: inherit;
+  }
+}
+
+@media (min-width: 768px) {
+  .daypicker-range {
+    position: absolute !important;
+  }
+}

@@ -188,8 +188,13 @@ export let AccomodationForm = function (options) {
 
     if (self._o.el) {
         self.render();
-        
 
+        //add close button event
+        const closeBtn = document.querySelector("#btn-close");
+        closeBtn.addEventListener("click", () => {
+            self.close();
+        });
+        // add select events
         const selected = document.querySelectorAll(".selected");
         selected.forEach((item) => {
             const optionsContainer =
@@ -211,35 +216,35 @@ export let AccomodationForm = function (options) {
         // Form validation
         function logSubmit(event) {
             event.preventDefault();
-                let errorMessage = "";
-                let hotel = ""; //form.elements["hotel-selector"].querySelector('input[type="radio"]:checked').value;
-                const hotelSelector = form
-                    .querySelector("#hotel-selector")
-                    .querySelector('input[type="radio"]:checked');
-                if (!hotelSelector) {
-                    errorMessage += "Please select a hotel.\n";
-                    console.log(errorMessage);
-                } else {
-                    hotel = hotelSelector.value;
-                }
-                const checkIn = form.elements["check-in"].value;
-                const checkOut = form.elements["check-out"].value;
-                const rooms = form
-                    .querySelector("#rooms-selector")
-                    .querySelector('input[type="radio"]:checked').value;
-                const guests = form
-                    .querySelector("#guests-selector")
-                    .querySelector('input[type="radio"]:checked').value; //form.elements["guests-selector"].value;
-                const promoCode = form.elements["promo-code"].value;
-                const formData = {
-                    hotel,
-                    checkIn,
-                    checkOut,
-                    rooms,
-                    guests,
-                    promoCode,
-                };
-            
+            let errorMessage = "";
+            let hotel = ""; //form.elements["hotel-selector"].querySelector('input[type="radio"]:checked').value;
+            const hotelSelector = form
+                .querySelector("#hotel-selector")
+                .querySelector('input[type="radio"]:checked');
+            if (!hotelSelector) {
+                errorMessage += "Please select a hotel.\n";
+                console.log(errorMessage);
+            } else {
+                hotel = hotelSelector.value;
+            }
+            const checkIn = form.elements["check-in"].value;
+            const checkOut = form.elements["check-out"].value;
+            const rooms = form
+                .querySelector("#rooms-selector")
+                .querySelector('input[type="radio"]:checked').value;
+            const guests = form
+                .querySelector("#guests-selector")
+                .querySelector('input[type="radio"]:checked').value; //form.elements["guests-selector"].value;
+            const promoCode = form.elements["promo-code"].value;
+            const formData = {
+                hotel,
+                checkIn,
+                checkOut,
+                rooms,
+                guests,
+                promoCode,
+            };
+
             var event = new CustomEvent("accommodation-search-form-submitted", {
                 detail: formData,
             });
@@ -279,19 +284,48 @@ AccomodationForm.prototype = {
         let checkInEle = renderDate("check-in", this._o);
         let checkOutEle = renderDate("check-out", this._o);
         this._o.el.innerHTML = `
+        <div class="md:hidden sm:flex sm:flex-row-reverse">
+            <button id="btn-close" class="bg-transparent border-0">
+            <svg fill="none" stroke="#fff" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
         <form class="booking_form sm:border" id="accommodations">
             ${hotelsEle}
             <div class="grid grid-cols-2">
-            ${checkInEle}
-            ${checkOutEle}
+                ${checkInEle}
+                ${checkOutEle}
+                <div class="date-ranger" id="calendar-component" style="grid-column: span 2 / span 2;">
+                </div>
             </div>
             <div class="grid grid-cols-2">
-            ${renderRooms(this._o)}
-            ${renderGuest(this._o)}
+                ${renderRooms(this._o)}
+                ${renderGuest(this._o)}
             </div>
             ${this._o.showPromocode ? renderPromoCode() : ""}
             ${renderButtn()}
         </form>
         `;
+
+        this._o.el.classList.add("sm:hidden");
+
+        let btn = document.createElement("button");
+        btn.innerHTML = "Book Now";
+        btn.type = "button";
+        btn.id = "btn-mobile-book-now";
+        btn.className = "mobile_submit_button";
+        btn.addEventListener('click', () => {
+            btn.classList.add('!z-1')
+            this._o.el.classList.remove("sm:hidden");
+        })
+
+        if (this._o.el.nextSibling) {
+            this._o.el.parentNode.insertBefore(btn, this._o.el.nextSibling);
+        } else {
+            this._o.el.parentNode.appendChild(btn);
+        }
     },
+    close: function(){
+        this._o.el.classList.add("sm:hidden");
+        this._o.el.parentNode.querySelector('#btn-mobile-book-now').classList.remove('!z-1');
+    }
 };

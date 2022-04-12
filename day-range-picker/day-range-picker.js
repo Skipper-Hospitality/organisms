@@ -16,6 +16,8 @@ const defaults = {
   // automatically show/hide the picker on `field` focus (default `true` if `field` is set)
   bound: undefined,
 
+  container: null,
+
   // position of the datepicker, relative to the field (default to bottom & left)
   // ('bottom' & 'left' keywords are not used, 'top' & 'right' are modifier on the bottom/left position)
   position: "bottom left",
@@ -379,7 +381,11 @@ export let DayRangePicker = function (options) {
   addEvent(self.el, "touchend", self._onMouseDown, true);
 
   if (opts.checkIn) {
-    if (opts.bound) {
+    console.log('screen.width', screen.width);
+    if(opts.container && screen.width < 768){
+      opts.container.appendChild(self.el);
+    }
+    else if (opts.bound) {
       document.body.appendChild(self.el);
     } else {
       opts.checkIn.parentNode.insertBefore(self.el, opts.checkIn.nextSibling);
@@ -411,11 +417,11 @@ DayRangePicker.prototype = {
     let opts = extend(this._o, options, true);
     opts.checkIn = opts.checkIn && opts.checkIn.nodeName ? opts.checkIn : null;
     opts.bound = !!(opts.bound !== undefined
-      ? opts.checkIn && opts.bound
+      ? 0 && opts.bound
       : opts.checkIn);
-    opts.trigger =
+      opts.trigger =
       opts.trigger && opts.trigger.nodeName ? opts.trigger : opts.checkIn;
-
+      
     if (!isDate(opts.minDate)) {
       opts.minDate = false;
     }
@@ -439,7 +445,6 @@ DayRangePicker.prototype = {
     if(isDate(this._o.endDate)){
       this.setEndDate(this._o.endDate);
     }
-
     return opts;
   },
   toString: function (format) {
@@ -743,7 +748,7 @@ DayRangePicker.prototype = {
         "</div>";
     }
     this.el.innerHTML = html;
-
+    
     if (opts.bound) {
       if (opts.checkIn.type !== "hidden") {
         sto(function () {
@@ -766,7 +771,7 @@ DayRangePicker.prototype = {
       leftAligned,
       bottomAligned;
 
-    this.el.style.position = "absolute";
+    // this.el.style.position = "absolute";
     checkIn = this._o.trigger;
     pEl = checkIn;
     width = this.el.offsetWidth;

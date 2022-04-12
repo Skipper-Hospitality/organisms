@@ -1,16 +1,11 @@
 @import url("http://fonts.cdnfonts.com/css/questrial");
-.form_container {
+:root {
     --primary-accommodation-search-form: #ffffff;
     --secondary-accommodation-search-form: #e3e200;
+    --primary-text-color: #253745;
     --bg-accommodation-search-form: #253745;
     --bg-accommodation-search-form-input-box: #253745;
     --border-accommodation-search-form: #617c87;
-    display: flex;
-    position: absolute;
-    bottom: 30vh;
-    width: 100%;
-    -webkit-justify-content: center;
-    justify-content: center;
 }
 .pod_container {
     display: block;
@@ -25,14 +20,7 @@
     min-width: 100%;
     min-height: 100%;
 }
-.form_container {
-    display: flex;
-    position: absolute;
-    bottom: 30vh;
-    width: 100%;
-    -webkit-justify-content: center;
-    justify-content: center;
-}
+
 .booking_form {
     font-family: "Questrial", sans-serif;
     display: flex;
@@ -178,7 +166,7 @@ option {
     overflow: hidden;
 
     position: absolute;
-    top: 50px;
+    top: 55px;
 
     /* order: 1; */
 }
@@ -209,9 +197,9 @@ option {
 }
 .select-box .options-container.active {
     min-width: 50px;
-    max-height: 240px;
+    max-height: 800px;
     opacity: 1;
-    /* overflow-y: scroll; */
+    overflow-y: auto;
 }
 .select-box .options-container.active + .selected::after {
     transform: rotate(180deg);
@@ -233,6 +221,31 @@ option {
     display: none;
 }
 
+.mobile_submit_button {
+    display: block;
+    position: fixed;
+    width: 100%;
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+    font-size: 16px;
+    line-height: 1 !important;
+    text-align: center;
+    border: 0px;
+    color: var(--primary-text-color) !important;
+    background-color: var(--secondary-accommodation-search-form) !important;
+    box-sizing: border-box;
+    /* z-index: 4; */
+}
+.\!z-1 {
+    z-index: -1;
+}
+.bg-transparent {
+    background-color: transparent;
+}
+.border-0 {
+    border-width: 0px;
+}
 @media (max-width: 767px) {
     .booking_form {
         flex-direction: column;
@@ -299,6 +312,9 @@ option {
     .sm\:grid {
         display: grid;
     }
+    .sm\:flex-row-reverse {
+        flex-direction: row-reverse;
+    }
     .sm\:justify-between {
         justify-content: space-between;
     }
@@ -323,13 +339,39 @@ option {
         padding-top: 20px;
         padding-bottom: 20px;
     }
+    .form_container {
+        /* display: block; */
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        background-color: rgba(0, 0, 0, 0.7);
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
     .md\:pr-4 {
         padding-right: 1rem;
     }
     .md\:px-4 {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+    .md\:hidden {
+        display: none;
+    }
+    .form_container {
+        display: flex;
+        position: absolute;
+        bottom: 30vh;
+        width: 100%;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+    .mobile_submit_button {
+        display: none;
     }
 }
