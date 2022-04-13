@@ -1,141 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Organisms</title>
-    <link rel="stylesheet" href="./day-range-picker/styles/day-range-picker.css"/>
-  </head>
-  <body>
-    <div id="app">Home page</div>
-    <a href="/calendar.html">Date Range Picker</a>
-    <a href="./accommodation-search-form/examples/accommodation-search-form.html">Accomation Seach Form</a>
-    <div>
-      <div class="grid px-3 pt-4">
-        <label class="form_label text-center">Check In</label>
-        <input
-          type="text"
-          class="hidden"
-          name="check-in"
-          id="datepicker-check-in"
-          value=""/>
-        <label
-          class="datepicker text-center"
-          for="datepicker-check-in"
-          id="datepicker-check-in-label">
-            18 <small>Feb</small>
-        </label>
-      </div>
-      <div class="grid px-3 pt-4">
-        <label class="form_label">Check Out</label>
-        <input
-          type="text"
-          class="hidden"
-          name="check-in"
-          id="datepicker-check-out"
-          value=""/>
-        <label
-          class="datepicker text-center"
-          for="datepicker-check-out"
-          id="datepicker-check-out-label">
-          19 <small>Feb</small>
-        </label>
-      </div>
-    </div>
-    <div id="accommodation-search-form">Form</div>
-    <!-- <script src="./day-range-picker/day-range-picker.js" type="module"></script>  -->
-    <script type="module">
-      import {DayRangePicker} from "./day-range-picker/day-range-picker.js";
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Organisms</title>
+        <link
+            rel="stylesheet"
+            href="./day-range-picker/styles/day-range-picker.css"
+        />
+    </head>
+    <body>
+        <div id="app">Home page</div>
+        <a href="/calendar.html">Date Range Picker</a>
+        <a
+            href="./accommodation-search-form/examples/accommodation-search-form.html"
+            >Accomation Seach Form</a
+        >
 
-      const prices = [
-        {
-          date: '2022-03-05T14:48:00.000Z',
-          price: 110
-        }, {
-          date: '2022-03-06T14:48:00.000Z',
-          price: 112
-        }, {
-          date: '2022-03-07T14:48:00.000Z',
-          price: 111
-        }, {
-          date: '2022-03-09T14:48:00.000Z',
-          price: 115
-        }, {
-          date: '2022-03-11T14:48:00.000Z',
-          price: 110
-        }, {
-          date: '2022-03-14T14:48:00.000Z',
-          price: 122
-        },
-        {
-          date: '2022-03-15T14:48:00.000Z',
-          price: 121
-        }, 
-        {
-          date: '2022-03-19T14:48:00.000Z',
-          price: 121
-        }
-      ]
-      const checkIn = document.getElementById("datepicker-check-in");
-      const checkInLabel = document.getElementById("datepicker-check-in-label");
-      const checkOut = document.getElementById("datepicker-check-out");
-      const checkOutLabel = document.getElementById("datepicker-check-out-label");
+        <div id="accommodation-search-form">Form</div>
+        <!-- <script src="./day-range-picker/day-range-picker.js" type="module"></script>  -->
 
-      let startDate = new Date();
-      startDate.setDate(startDate.getDate() + 1);
-      let endDate = new Date();
-      endDate.setDate(endDate.getDate() + 2);
-      let minDate = new Date();
-      minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
-      let maxDate = new Date();
-      maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
+        <script type="module">
+            import { AccomodationForm } from "./accommodation-search-form/accommodation-search-form.js";
+            const accommodations = ["Pod 39", "Pod 51", "Pod BK", "Pod TSQ"];
+            var accommodationForm = new AccomodationForm({
+                blockId: "accommodation-search-form",
+                blockClass: "accommodation-search-form",
+                accommodations,
+                maxRoom: 8,
+                maxGuest: 8,
+                format: "DD/MM/YYYY",
+            });
 
-      // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+            document.addEventListener(
+                "accommodation-search-form-submitted",
+                function (e) {
+                    console.log(e.detail); // Prints "Example of an event"
+                }
+            );
+            // const accommodations = ["Pod 39 New York", "Pod 51 New York", "Pod Times Square New York", "Pod Brooklyn New York", "Pod Pads @ Times Square"]
+            // var picker = new AccomodationForm({
+            //   blockId: "accommodation-search-form",
+            //   blockClass: "accommodation-search-form",
+            //   accommodations,
+            //   format: "DD/MM/YYYY"
+            // });
+            // document.addEventListener(
+            //     "accommodation-search-form-submitted",
+            //     function (e) {
+            //         console.log(e.detail); // Prints "Example of an event"
+            //     }
+            // );
+        </script>
 
-      //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
-      var picker = new DayRangePicker({
-        checkIn,
-        checkInLabel,
-        checkOut,
-        checkOutLabel,
-        startDate,
-        endDate,
-        minDate,
-        maxDate,
-        showPrice: true,
-        format: "DD/MM/YYYY"
-      });
+        <script type="module">
+            import { DayRangePicker } from "./day-range-picker/day-range-picker.js";
 
-      startDate.setDate(startDate.getDate() + 1);
-      endDate.setDate(endDate.getDate() + 2)
-      // picker.setDateRange(startDate, endDate);
-      startDate.setDate(startDate.getDate() + 1);
-      picker.selectStartDate(startDate);
-      picker.selectEndDate(endDate);
-      picker.goToNextMonth();
-      picker.goToPrevMonth();
-      picker.setPriceList(prices)
-      // console.log(picker.getCurrentDateRange());
-      // console.log(picker.getCurrentEndDate());
-      // console.log(picker.getCurrentStartDate());
-    </script>
+            const prices = [
+                {
+                    date: "2022-05-05T14:48:00.000Z",
+                    price: 110,
+                },
+                {
+                    date: "2022-05-06T14:48:00.000Z",
+                    price: 112,
+                },
+                {
+                    date: "2022-05-07T14:48:00.000Z",
+                    price: 111,
+                },
+                {
+                    date: "2022-05-09T14:48:00.000Z",
+                    price: 115,
+                },
+                {
+                    date: "2022-05-11T14:48:00.000Z",
+                    price: 110,
+                },
+                {
+                    date: "2022-05-14T14:48:00.000Z",
+                    price: 122,
+                },
+                {
+                    date: "2022-05-15T14:48:00.000Z",
+                    price: 121,
+                },
+                {
+                    date: "2022-05-19T14:48:00.000Z",
+                    price: 121,
+                },
+            ];
+            const container = document.getElementById("calendar-component");
+            const checkIn = document.getElementById("datepicker-check-in");
+            const checkInLabel = document.getElementById(
+                "datepicker-check-in-label"
+            );
+            const checkOut = document.getElementById("datepicker-check-out");
+            const checkOutLabel = document.getElementById(
+                "datepicker-check-out-label"
+            );
 
-    <script type="module">
-      import { AccomodationForm } from './accommodation-search-form/accommodation-search-form.js';
-      const accommodations = ["Pod 39 New York", "Pod 51 New York", "Pod Times Square New York", "Pod Brooklyn New York", "Pod Pads @ Times Square"]
-      var picker = new AccomodationForm({
-        blockId: "accommodation-search-form",
-        blockClass: "accommodation-search-form",
-        accommodations,
-        format: "DD/MM/YYYY"
-      });
-      document.addEventListener(
-          "accommodation-search-form-submitted",
-          function (e) {
-              console.log(e.detail); // Prints "Example of an event"
-          }
-      );
-    </script>
-  </body>
+            let startDate = new Date();
+            startDate.setDate(startDate.getDate() + 1);
+            let endDate = new Date();
+            endDate.setDate(endDate.getDate() + 2);
+            let minDate = new Date();
+            minDate.setDate(minDate.getDate() - 2); //starting day is 2 days from now
+            let maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 120); //maxlimit is 60 days from now;
+
+            // var picker = new DayRangePicker({field: document.getElementById("datepicker"), minDate, maxDate, showPrice: false, format: "DD/MM/YYYY"});
+
+            //var dp = new DayRangePicker({checkIn: document.getElementById("dp"), format: "yyyy-MM-dd"});
+            var picker = new DayRangePicker({
+                checkIn,
+                checkInLabel,
+                checkOut,
+                checkOutLabel,
+                startDate,
+                endDate,
+                minDate,
+                maxDate,
+                container,
+                numberOfMonths: 1,
+                showPrice: true,
+                format: "DD/MM/YYYY",
+            });
+
+            startDate.setDate(startDate.getDate() + 1);
+            endDate.setDate(endDate.getDate() + 2);
+            // picker.setDateRange(startDate, endDate);
+            startDate.setDate(startDate.getDate() + 1);
+            picker.selectStartDate(startDate);
+            picker.selectEndDate(endDate);
+            picker.goToNextMonth();
+            picker.goToPrevMonth();
+            picker.setPriceList(prices);
+            // console.log(picker.getCurrentDateRange());
+            // console.log(picker.getCurrentEndDate());
+            // console.log(picker.getCurrentStartDate());
+        </script>
+    </body>
 </html>
