@@ -85,7 +85,7 @@ const renderHotels = (hotels) => {
             </div>
             <div class="selected">Select Hotel</div>
         </div>
-        <div class="px-4 error-msg" id="hotel-error"></div>
+        <div class="sm:px-4 error-msg" id="hotel-error"></div>
     </div>`;
 };
 const renderDate = (type, options) => {
@@ -235,7 +235,7 @@ export let AccomodationForm = function (options) {
                 .querySelector('input[type="radio"]:checked');
             if (!hotelSelector) {
                 errorMessage += "Please select a hotel.\n";
-                self._o.hotelErrorMsg = "Please select a property to continue";
+                self._o.hotelErrorMsg = "Please select a hotel to continue";
             } else {
                 hotel = hotelSelector.value;
                 self._o.hotelErrorMsg = "";
