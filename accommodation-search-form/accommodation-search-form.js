@@ -64,6 +64,8 @@ const defaults = {
         "Nov",
         "Dec",
     ],
+
+    hotelErrorMsg: "Please select a hotel",
 };
 
 const renderHotels = (hotels) => {
@@ -83,6 +85,7 @@ const renderHotels = (hotels) => {
             </div>
             <div class="selected">Select Hotel</div>
         </div>
+        <div class="px-4 error-msg" id="hotel-error"></div>
     </div>`;
 };
 const renderDate = (type, options) => {
@@ -116,7 +119,9 @@ const renderDate = (type, options) => {
         valEle = `<input type="text" class="" name="${type}" id="datepicker-${type}" value="${dateValue}"/>`;
     }
     return `
-    <div class="px-2 md:px-4 sm:py-2 sm:flex sm:justify-between sm:items-center sm:border-t-r" >
+    <div class="px-2 md:px-4 sm:py-2 sm:flex sm:justify-between sm:items-center sm:border-t${
+        type === "check-in" ? "-r" : ""
+    }" >
         <label class="form_label text-center">${
             type === "check-in"
                 ? "Check In"
@@ -157,7 +162,7 @@ const renderGuest = (opts) => {
         </div>`;
     }
     return `
-    <div class="sm:grid px-2 md:px-4 sm:border-t-r" id="guests-selector" >
+    <div class="sm:grid px-2 md:px-4 sm:border-t" id="guests-selector" >
         <label class="form_label sm:text-center" for="guests-selector" > Guests </label>
         <div class="select-box">
             <div class="options-container sm:w-10">
@@ -223,9 +228,10 @@ export let AccomodationForm = function (options) {
                 .querySelector('input[type="radio"]:checked');
             if (!hotelSelector) {
                 errorMessage += "Please select a hotel.\n";
-                console.log(errorMessage);
+                self._o.hotelErrorMsg = "Please select a property to continue";
             } else {
                 hotel = hotelSelector.value;
+                self._o.hotelErrorMsg="";
             }
             const checkIn = form.elements["check-in"].value;
             const checkOut = form.elements["check-out"].value;
@@ -248,7 +254,10 @@ export let AccomodationForm = function (options) {
             var event = new CustomEvent("accommodation-search-form-submitted", {
                 detail: formData,
             });
-            document.dispatchEvent(event);
+            self.showError();
+            if (!errorMessage.length > 0) {
+                document.dispatchEvent(event);
+            }
         }
         const form = document.getElementById("accommodations");
         form.addEventListener("submit", logSubmit);
@@ -285,8 +294,8 @@ AccomodationForm.prototype = {
         let checkOutEle = renderDate("check-out", this._o);
         this._o.el.innerHTML = `
         <div class="md:hidden sm:flex sm:flex-row-reverse">
-            <button id="btn-close" class="bg-transparent border-0">
-            <svg fill="none" stroke="#fff" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <button id="btn-close" class="btn-close bg-white border-0">
+            <svg fill="none" stroke="#000" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         <form class="booking_form sm:border" id="accommodations">
@@ -313,10 +322,10 @@ AccomodationForm.prototype = {
         btn.type = "button";
         btn.id = "btn-mobile-book-now";
         btn.className = "mobile_submit_button";
-        btn.addEventListener('click', () => {
-            btn.classList.add('!z-1')
+        btn.addEventListener("click", () => {
+            btn.classList.add("!z-1");
             this._o.el.classList.remove("sm:hidden");
-        })
+        });
 
         if (this._o.el.nextSibling) {
             this._o.el.parentNode.insertBefore(btn, this._o.el.nextSibling);
@@ -324,8 +333,14 @@ AccomodationForm.prototype = {
             this._o.el.parentNode.appendChild(btn);
         }
     },
-    close: function(){
+    showError: function () {
+        const error = document.querySelector(`#hotel-error`);
+        error.innerHTML = this._o.hotelErrorMsg;
+    },
+    close: function () {
         this._o.el.classList.add("sm:hidden");
-        this._o.el.parentNode.querySelector('#btn-mobile-book-now').classList.remove('!z-1');
-    }
+        this._o.el.parentNode
+            .querySelector("#btn-mobile-book-now")
+            .classList.remove("!z-1");
+    },
 };

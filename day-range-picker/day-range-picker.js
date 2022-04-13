@@ -163,7 +163,7 @@ const renderDay = function (opts) {
   }
 
   let innerEle = opts.showPrice
-    ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">${opts.price ? '$' + opts.price : '--'}</div></div>`
+    ? `<div class="day-box"><div class="day-date">${opts.day}</div>${opts.price ? '<div class="day-price">$' + opts.price + '</div>' : ''}</div>`
     : `${opts.day}`;
 
   return (
@@ -381,7 +381,6 @@ export let DayRangePicker = function (options) {
   addEvent(self.el, "touchend", self._onMouseDown, true);
 
   if (opts.checkIn) {
-    console.log('screen.width', screen.width);
     if(opts.container && screen.width < 768){
       opts.container.appendChild(self.el);
     }

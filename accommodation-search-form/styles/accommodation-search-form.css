@@ -240,11 +240,25 @@ option {
 .\!z-1 {
     z-index: -1;
 }
-.bg-transparent {
-    background-color: transparent;
+.bg-white {
+    background-color: white;
 }
 .border-0 {
     border-width: 0px;
+}
+.error-msg{
+    font-size: 10px;
+    line-height: 16px;
+    color: #DA291C;
+}
+.btn-close{
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    margin-bottom: -12px;
+    margin-right: -12px;
+    padding-top: 2px;
 }
 @media (max-width: 767px) {
     .booking_form {
