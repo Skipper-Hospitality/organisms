@@ -92,6 +92,7 @@ const defaults = {
   checkOutLabel: null,
   priceList: null,
   bound: void 0,
+  container: null,
   position: "bottom left",
   reposition: true,
   showPrice: false,
@@ -206,7 +207,7 @@ const renderDay = function(opts) {
   if (opts.isDisabled) {
     arr.push("is-disabled");
   }
-  let innerEle = opts.showPrice ? `<div class="day-box"><div class="day-date">${opts.day}</div><div class="day-price">${opts.price ? "$" + opts.price : "--"}</div></div>` : `${opts.day}`;
+  let innerEle = opts.showPrice ? `<div class="day-box"><div class="day-date">${opts.day}</div>${opts.price ? '<div class="day-price">$' + opts.price + "</div>" : ""}</div>` : `${opts.day}`;
   return '<td data-day="' + opts.day + '" class="' + arr.join(" ") + '" aria-selected="' + ariaSelected + '"><button class="daypicker-button daypicker-day" type="button" data-daypicker-year="' + opts.year + '" data-daypicker-month="' + opts.month + '" data-daypicker-day="' + opts.day + '">' + innerEle + "</button></td>";
 };
 const renderRow = function(days) {
@@ -357,7 +358,9 @@ let DayRangePicker = function(options) {
   addEvent(self.el, "mousedown", self._onMouseDown, true);
   addEvent(self.el, "touchend", self._onMouseDown, true);
   if (opts.checkIn) {
-    if (opts.bound) {
+    if (opts.container && screen.width < 768) {
+      opts.container.appendChild(self.el);
+    } else if (opts.bound) {
       document.body.appendChild(self.el);
     } else {
       opts.checkIn.parentNode.insertBefore(self.el, opts.checkIn.nextSibling);
@@ -384,7 +387,7 @@ DayRangePicker.prototype = {
     }
     let opts = extend(this._o, options, true);
     opts.checkIn = opts.checkIn && opts.checkIn.nodeName ? opts.checkIn : null;
-    opts.bound = !!(opts.bound !== void 0 ? opts.checkIn && opts.bound : opts.checkIn);
+    opts.bound = !!(opts.bound !== void 0 ? 0 : opts.checkIn);
     opts.trigger = opts.trigger && opts.trigger.nodeName ? opts.trigger : opts.checkIn;
     if (!isDate(opts.minDate)) {
       opts.minDate = false;
@@ -671,7 +674,6 @@ DayRangePicker.prototype = {
   },
   adjustPosition: function() {
     let checkIn, pEl, width, height, viewportWidth, viewportHeight, scrollTop, left, top, clientRect, leftAligned, bottomAligned;
-    this.el.style.position = "absolute";
     checkIn = this._o.trigger;
     pEl = checkIn;
     width = this.el.offsetWidth;

@@ -32,6 +32,8 @@ const defaults = {
   checkOut: null,
   rooms: 1,
   promoCode: null,
+  maxRoom: 10,
+  maxGuest: 10,
   showAccommodations: true,
   showDatesLabel: true,
   showPromocode: true,
@@ -48,20 +50,27 @@ const defaults = {
     "Oct",
     "Nov",
     "Dec"
-  ]
+  ],
+  hotelErrorMsg: "Please select a hotel"
 };
 const renderHotels = (hotels) => {
   let optEle = "";
   hotels.forEach((hotel) => {
-    optEle += `<option value="${hotel}">${hotel}</option>`;
+    optEle += `<div class="option">
+                        <input type="radio" class="radio" id="${hotel}" value="${hotel}" name="hotel"/>
+                        <label for="${hotel}">${hotel}</label>
+                    </div>`;
   });
   return `
-    <div class="grid px-3 pt-4 pb-7">
-        <label class="form_label" for="hotel-selector">Location</label>
-        <select id="hotel-selector" name="hotel-selector">
-            <option value="" data-be="" selected>Select Hotel</option>
-            ${optEle}
-        </select>
+    <div class="md:pr-4" id="hotel-selector">
+        <label class="form_label sm:hidden" for="hotel-selector" > Select Hotel </label>
+        <div class="select-box hotel">
+            <div class="options-container">
+                ${optEle}
+            </div>
+            <div class="selected">Select Hotel</div>
+        </div>
+        <div class="sm:px-4 error-msg" id="hotel-error"></div>
     </div>`;
 };
 const renderDate = (type, options) => {
@@ -81,53 +90,57 @@ const renderDate = (type, options) => {
     valEle = `<input type="text" class="" name="${type}" id="datepicker-${type}" value="${dateValue}"/>`;
   }
   return `
-    <div class="grid px-3 pt-4 pb-7">
+    <div class="px-2 md:px-4 sm:py-2 sm:flex sm:justify-between sm:items-center sm:border-t${type === "check-in" ? "-r" : ""}" >
         <label class="form_label text-center">${type === "check-in" ? "Check In" : type === "check-out" ? "Check Out" : ""}</label>
         ${valEle}
     </div>`;
 };
-const renderRooms = () => {
+const renderRooms = (opts) => {
+  let roomsEle = "";
+  for (let i = 1; i <= opts.maxRoom; i++) {
+    roomsEle += `
+        <div class="option"> 
+            <input type="radio" class="radio" id="rooms_${i}" value="${i}" name="rooms" checked /> 
+            <label for="rooms_${i}">${i}</label> 
+        </div>`;
+  }
   return `
-    <div class="grid px-3 pt-4 pb-7">
-        <label class="form_label" for="rooms-selector">Rooms</label>
-        <select id="rooms-selector" name="rooms-selector">
-            <option selected="" value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
+    <div class="sm:grid px-2 md:px-4 sm:border-t-r" id="rooms-selector" >
+        <label class="form_label sm:text-center" for="rooms-selector" > Rooms </label>
+        <div class="select-box">
+            <div class="options-container">
+                ${roomsEle}                
+            </div>
+            <div class="selected sm:w-10 sm:mx-auto">1</div>
+        </div>
     </div>`;
 };
-const renderGuest = () => {
+const renderGuest = (opts) => {
+  let guestEle = "";
+  for (let i = 1; i <= opts.maxGuest; i++) {
+    guestEle += `
+        <div class="option"> 
+            <input type="radio" class="radio" id="guests_${i}" value="${i}" name="guests" checked /> 
+            <label for="guests_${i}">${i}</label> 
+        </div>`;
+  }
   return `
-    <div class="grid px-3 pt-4 pb-7"> 
-        <label class="form_label" for="guests-selector" >Guests</label > 
-        <select name="guests-selector" id="guests-selector"> 
-            <option selected="" value="1">1</option> 
-            <option value="2">2</option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-        </select> 
+    <div class="sm:grid px-2 md:px-4 sm:border-t" id="guests-selector" >
+        <label class="form_label sm:text-center" for="guests-selector" > Guests </label>
+        <div class="select-box">
+            <div class="options-container sm:w-10">
+            ${guestEle}
+            </div>
+            <div class="selected sm:w-10 sm:mx-auto">1</div>
+        </div> 
     </div>
-    `;
+        `;
 };
 const renderPromoCode = () => {
   return `
-    <div class="grid px-3 pt-4 pb-7"> 
-        <label class="form_label" for="promo-code" >Promo Code</label > 
-        <input type="text" class="promo-code" name="promo-code" id="promo-code" /> 
+    <div class="px-4 sm:py-5 sm:flex sm:border-t">
+        <label class="form_label" for="promo-code" >Promo Code</label >
+        <input type="text" class="promo-code" name="promo-code" id="promo-code"/>
     </div>`;
 };
 const renderButtn = () => {
@@ -141,14 +154,22 @@ let AccomodationForm = function(options) {
   self.config(options);
   if (self._o.el) {
     let logSubmit = function(event) {
-      var _a, _b;
       event.preventDefault();
-      const hotel = (_a = form.elements["hotel-selector"]) == null ? void 0 : _a.value;
+      let errorMessage = "";
+      let hotel = "";
+      const hotelSelector = form.querySelector("#hotel-selector").querySelector('input[type="radio"]:checked');
+      if (!hotelSelector) {
+        errorMessage += "Please select a hotel.\n";
+        self._o.hotelErrorMsg = "Please select a hotel to continue";
+      } else {
+        hotel = hotelSelector.value;
+        self._o.hotelErrorMsg = "";
+      }
       const checkIn = form.elements["check-in"].value;
       const checkOut = form.elements["check-out"].value;
-      const rooms = form.elements["rooms-selector"].value;
-      const guests = form.elements["guests-selector"].value;
-      const promoCode = (_b = form.elements["promo-code"]) == null ? void 0 : _b.value;
+      const rooms = form.querySelector("#rooms-selector").querySelector('input[type="radio"]:checked').value;
+      const guests = form.querySelector("#guests-selector").querySelector('input[type="radio"]:checked').value;
+      const promoCode = form.elements["promo-code"].value;
       const formData = {
         hotel,
         checkIn,
@@ -160,9 +181,35 @@ let AccomodationForm = function(options) {
       var event = new CustomEvent("accommodation-search-form-submitted", {
         detail: formData
       });
-      document.dispatchEvent(event);
+      self.showError();
+      if (!errorMessage.length > 0) {
+        document.dispatchEvent(event);
+      }
     };
     self.render();
+    const closeBtn = document.querySelector("#btn-close");
+    closeBtn.addEventListener("click", () => {
+      self.close();
+    });
+    const selected = document.querySelectorAll(".selected");
+    selected.forEach((item) => {
+      const optionsContainer = item.parentElement.querySelector(".options-container");
+      const optionList = optionsContainer.querySelectorAll(".option");
+      item.addEventListener("click", () => {
+        optionsContainer.classList.toggle("active");
+        document.addEventListener("mousedown", function(e) {
+          if (!e.composedPath().includes(optionsContainer)) {
+            optionsContainer.classList.remove("active");
+          }
+        });
+      });
+      optionList.forEach((o) => {
+        o.addEventListener("click", () => {
+          item.innerHTML = o.querySelector("label").innerHTML;
+          optionsContainer.classList.remove("active");
+        });
+      });
+    });
     const form = document.getElementById("accommodations");
     form.addEventListener("submit", logSubmit);
   }
@@ -193,16 +240,50 @@ AccomodationForm.prototype = {
     let checkInEle = renderDate("check-in", this._o);
     let checkOutEle = renderDate("check-out", this._o);
     this._o.el.innerHTML = `
-        <form class="booking_form" id="accommodations">
+        <div class="md:hidden sm:flex sm:flex-row-reverse">
+            <button id="btn-close" class="btn-close bg-white border-0">
+            <svg fill="none" stroke="#000" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <form class="booking_form sm:border" id="accommodations">
             ${hotelsEle}
-            ${checkInEle}
-            ${checkOutEle}
-            ${renderRooms()}
-            ${renderGuest()}
+            <div class="grid grid-cols-2">
+                ${checkInEle}
+                ${checkOutEle}
+                <div class="date-ranger" id="calendar-component" style="grid-column: span 2 / span 2;">
+                </div>
+            </div>
+            <div class="grid grid-cols-2">
+                ${renderRooms(this._o)}
+                ${renderGuest(this._o)}
+            </div>
             ${this._o.showPromocode ? renderPromoCode() : ""}
             ${renderButtn()}
         </form>
         `;
+    this._o.el.classList.add("sm:hidden");
+    let btn = document.createElement("button");
+    btn.innerHTML = "Book Now";
+    btn.type = "button";
+    btn.id = "btn-mobile-book-now";
+    btn.className = "mobile_submit_button";
+    btn.addEventListener("click", () => {
+      btn.classList.add("!z-1");
+      this._o.el.classList.remove("sm:hidden");
+    });
+    if (this._o.el.nextSibling) {
+      this._o.el.parentNode.insertBefore(btn, this._o.el.nextSibling);
+    } else {
+      this._o.el.parentNode.appendChild(btn);
+    }
+  },
+  showError: function() {
+    const error = document.querySelector(`#hotel-error`);
+    error.innerHTML = this._o.hotelErrorMsg;
+  },
+  close: function() {
+    this._o.el.classList.add("sm:hidden");
+    this._o.el.parentNode.querySelector("#btn-mobile-book-now").classList.remove("!z-1");
   }
 };
 export { AccomodationForm };
