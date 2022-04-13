@@ -207,7 +207,14 @@ export let AccomodationForm = function (options) {
             const optionList = optionsContainer.querySelectorAll(".option");
 
             item.addEventListener("click", () => {
-                optionsContainer.classList.toggle("active");
+                optionsContainer.classList.toggle("active");           
+                
+                //Should close if click on outside
+                document.addEventListener("mousedown", function (e) {
+                    if (!e.composedPath().includes(optionsContainer)) {
+                        optionsContainer.classList.remove("active");
+                    }
+                });
             });
 
             optionList.forEach((o) => {
@@ -231,7 +238,7 @@ export let AccomodationForm = function (options) {
                 self._o.hotelErrorMsg = "Please select a property to continue";
             } else {
                 hotel = hotelSelector.value;
-                self._o.hotelErrorMsg="";
+                self._o.hotelErrorMsg = "";
             }
             const checkIn = form.elements["check-in"].value;
             const checkOut = form.elements["check-out"].value;
