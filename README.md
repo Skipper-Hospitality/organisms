@@ -312,11 +312,11 @@ You can also update your calendar widget **styles** by overwrite following css v
 
 ```js
     const accommodations = [
-                "Pod 39 New York",
-                "Pod 51 New York",
-                "Pod Times Square New York",
-                "Pod Brooklyn New York",
-                "Pod Pads @ Times Square",
+                "Accommodation 1",
+                "Accommodation 2",
+                "Accommodation 3",
+                "Accommodation 4",
+                "Accommodation 5",
     ];
     var accommodationForm = new AccomodationForm({
         blockId: "accommodation-search-form",
