@@ -1,6 +1,6 @@
 {
   "name": "skipper-organisms",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A vanilla JavaScript library for skipperhospitality management",
   "type": "module",
   "module": "index.js",

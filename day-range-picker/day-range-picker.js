@@ -229,8 +229,15 @@ const renderTitle = function (instance, c, year, month, randId) {
   }
 
   if(opts.maxYear < year || opts.maxMonth <= month) next = false;
-  if (c === (instance._o.numberOfMonths - 1) && next) {
-    html += `<button class="daypicker-next" type="button">${opts.dpickerConst.nextMonth}</button>`;
+  
+  if(screen.width > 768){
+    if (c === (instance._o.numberOfMonths - 1) && next) {
+      html += `<button class="daypicker-next" type="button">${opts.dpickerConst.nextMonth}</button>`;
+    }
+  } else {
+    if (c === 0 && next) {
+      html += `<button class="daypicker-next" type="button">${opts.dpickerConst.nextMonth}</button>`;
+    }
   }
 
   return (html += "</div>");

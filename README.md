@@ -83,14 +83,14 @@ import { DayRangePicker } from "skipper-organisms";
 ### **Importing from CDN**
 ```js
 //CSS CDN:
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/day-range-picker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/day-range-picker.min.css">
 
 //Javascript CDN:
 //CJS
-<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/day-range-picker.cjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/day-range-picker.cjs.min.js"></script>
 
 //ES
-<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/day-range-picker.es.min.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/day-range-picker.es.min.js" type="module"></script>
 ```
 
 ## Import Styles file
@@ -261,6 +261,8 @@ picker.setPriceList(prices);
 write the required markup to build your Accomodation Form
 
 ![Date Range Picker screenshot](https://raw.githubusercontent.com/Skipper-Hospitality/organisms/main/images/accommodation-form.png "Get a Form with JavaScript!")
+
+![Date Range Picker screenshot](https://raw.githubusercontent.com/Skipper-Hospitality/organisms/main/images/accommodation-form_mobile.jpg "Get a Form with JavaScript!")
 ## Basic Form Structure
 This is the basic HTML structure that DateRange picker requires:
 
@@ -280,14 +282,14 @@ import { AccomodationForm } from "skipper-organisms";
 ### **Importing Form from CDN**
 ```js
 //CSS CDN:
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/accommodation-search-form.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/accommodation-search-form.min.css">
 
 //Javascript CDN:
 //CJS
-<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/accommodation-search-form.cjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/accommodation-search-form.cjs.min.js"></script>
 
 //ES
-<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@0.1.1/dist/accommodation-search-form.es.min.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/skipper-organisms@1.0.0/dist/accommodation-search-form.es.min.js" type="module"></script>
 ```
 
 ## Import Form Styles file
